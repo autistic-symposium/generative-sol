@@ -49,7 +49,15 @@ You should be able to see it at [Rinkeby Etherscan](https://rinkeby.etherscan.io
 npx hardhat console --network rinkeby
 ```
 
+Mint a NFT:
 
+```
+> const Film = await ethers.getContractFactory('FilmmakerDAO');
+undefined
+> const film = await Film.attach('<contract>')
+undefined
+> await film.claim(1)
+```
 
 
 
@@ -68,4 +76,5 @@ npx hardhat test
 ## Deploying on Mainnet
 
 Same steps, simply set the default network to "mainnet" and make sure the private key in `.env` is from the desired account.
+
 

@@ -1,0 +1,4 @@
+# infura or alchemy keys
+PRIVATE_KEY = ""
+API_ENDPOINT = ""
+

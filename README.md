@@ -8,7 +8,7 @@
 
 ## Setup
 
-* Set an account and project on [Infura](https://infura.io/dashboard) or [Alchemy])(https://dashboard.alchemyapi.io/)
+* Set an account and project on [Infura](https://infura.io/dashboard) or [Alchemy](https://dashboard.alchemyapi.io/).
 * Set a test account in MetaMask and copy your private key. I use Rinkeby for dev (you can get some funds in [this faucet](https://faucet.rinkeby.io/)).
 
 ```bash

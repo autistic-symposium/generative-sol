@@ -471,32 +471,32 @@ abstract contract ERC721Enumerable is ERC721, IERC721Enumerable {
 contract FilmmakerDAO is ERC721Enumerable, ReentrancyGuard, Ownable {
 
     string[] private genres = [
-        "Drama ",
-        "Comedy ",
-        "Action ",
-        "Fantasy ",
-        "Horror ",
-        "Romance ",
-        "Western ",
-        "Thriller ",
+        "chick flick ",
+        "comedy ",
+        "action ",
+        "fantasy ",
+        "horror ",
+        "romance ",
+        "western ",
+        "thriller ",
         "rom-com ",
-        "Chick flick ",
-        "Romantic thriller ",
-        "Black Comedy ",
-        "Anime ",
-        "Mumblecore "
+        "drama ",
+        "romantic thriller ",
+        "black Comedy ",
+        "anime ",
+        "mumblecore "
     ];
 
     string[] private medium = [
-        "Short Film",
-        "Feature Film",
-        "Episodic",
-        "Limited Series",
-        "Narrative Audio",
-        "Podcast",
-        "VR Film",
-        "Documentary Film",
-        "Imax Film"
+        "short film,",
+        "feature film,",
+        "episodic,",
+        "limited series,",
+        "documentary film,",
+        "podcast,",
+        "VR film,",
+        "narrative audio,",
+        "IMAX film,"
     ];
 
     string[] private cities = [
@@ -536,69 +536,67 @@ contract FilmmakerDAO is ERC721Enumerable, ReentrancyGuard, Ownable {
     ];
 
     string[] private archetypes = [
-        "Lover",
-        "Witch"
-        "Hero",
-        "Magician",
-        "Outlaw",
-        "Explorer",
-        "Sage",
-        "Innocent",
-        "Creator",
-        "Ruler",
-        "Caregiver",
-        "Guy Next Door",
-        "Jester",
-        "Girl Next Door",
-        "Villian",
-        "Anarchist",
-        "Nihilist",
-        "Poet",
-        "Dude",
-        "Nomad"
+        " lover ",
+        " witch "
+        " hero ",
+        " magician ",
+        " outlaw ",
+        " explorer ",
+        " sage ",
+        " innocent child ",
+        " creator ",
+        " ruler ",
+        " caregiver ",
+        " guy next door ",
+        " jester ",
+        " villian ",
+        " anarchist ",
+        " nihilist ",
+        " poet ",
+        " funny dude ",
+        " nomad "
     ];
 
     string[] private verbs = [
-        "delivers",
-        "defeats",
-        "persuades",
-        "kisses",
-        "run",
-        "fights",
-        "escapes",
-        "falls",
-        "thinks",
-        "buys",
-        "drives",
-        "texts",
-        "makes love",
-        "walks",
-        "writes",
-        "yels",
-        "eats",
-        "plays",
-        "jumps",
-        "sings",
-        "dances",
-        "swims",
-        "sleeps",
-        "flirts",
-        "marries",
-        "assaults"
+        " delivers ",
+        " defeats ",
+        " persuades ",
+        " kisses ",
+        " run from ",
+        " fights against ",
+        " escapes from ",
+        " falls on ",
+        " thinks about ",
+        " buys ",
+        " drives away from ",
+        " texts ",
+        " makes love with ",
+        " walks away from ",
+        " writes about ",
+        " yells at ",
+        " eats a piece of ",
+        " plays with ",
+        " jumps from ",
+        " sings with ",
+        " dances with ",
+        " swims away ",
+        " sleeps with ",
+        " flirts with ",
+        " marries ",
+        " assaults "
     ];
 
     string[] private objects = [
-        "the blue umbrella",
-        "the sushi box",
-        "the diamond",
-        "the money",
-        "the skateboard",
-        "the cell phone",
-        "the coffee cup",
-        "the diet coke",
-        "the knife",
-        "the gun",
-        "the small dog"
+        "a blue umbrella",
+        "a shinning diamond",
+        "a money truk",
+        "a tiny skateboard",
+        "a dead cell phone",
+        "an empty coffee cup",
+        "a cup of diet coke",
+        "a sharp knife",
+        "a fake gun",
+        "a small dog"
     ];
 
     string[] private titles = [
@@ -612,7 +610,6 @@ contract FilmmakerDAO is ERC721Enumerable, ReentrancyGuard, Ownable {
         "unnotable",
         "infamous",
         "unremarkable",
-        "typical",
         "obscure",
         "regular",
         "unimpressive",
@@ -730,60 +727,32 @@ contract FilmmakerDAO is ERC721Enumerable, ReentrancyGuard, Ownable {
     }
 
     function tokenURI(uint256 tokenId) override public view returns (string memory) {
-        string[25] memory parts;
-        parts[0] = '<svg xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMinYMin meet" viewBox="0 0 350 350"><style>.base { fill: "white"; font-family: arial; font-size: 12px; </style><rect width="100%" height="100%" fill="black" /><text x="40" y="40" class="base">';
-
-        parts[1] = 'Hello, storyteller, welcome to FilmmakerDAO!\n';
-
-        parts[2] = '</text><text x="40" y="60" class="base">';
-
-        parts[3] = 'You have are ';
-
+        string[22] memory parts;
+        parts[0] = '<svg xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMinYMin meet" viewBox="0 0 350 350"><style>.base { fill: white; font-family: arial; font-size: 12px; </style><rect width="100%" height="100%" fill="black" /><text x="40" y="100" class="base">';
+        parts[1] = 'Hello, storyteller! Welcome to FilmmakerDAO!';
+        parts[2] = '</text><text x="40" y="140" class="base">';
+        parts[3] = 'You have are kind of ';
         parts[4] = getTitles(tokenId);
-
-        parts[5] = '</text><text x="40" y="80" class="base">';
-
-        parts[6] = 'for your ';
-
+        parts[5] = ' for your ';
+        parts[6] = '</text><text x="40" y="160" class="base">';
         parts[7] = getGenres(tokenId);
-
         parts[8] = getMediums(tokenId);
-
-        parts[9] = '</text><text x="40" y="100" class="words">';
-
-        parts[10] = 'particularly that ';
-
+        parts[9] = '</text><text x="40" y="180" class="base">';
+        parts[10] = 'particularly for that ';
         parts[11] = getAdjectives(tokenId);
-
-        parts[12] = '</text><text x="40" y="120" class="words">';
-
-        parts[13] = ' scene at ';
-
-        parts[14] = getCities(tokenId);
-
+        parts[12] = ' scene on ';
+        parts[13] = getCities(tokenId);
+        parts[14] = '</text><text x="40" y="200" class="base">';
         parts[15] = ' when the ';
+        parts[16] = getArchetypes(tokenId);
+        parts[17] = getVerbs(tokenId);
+        parts[18] = getObjects(tokenId);
+        parts[19] = '</text><text x="40" y="220" class="base">';
+        parts[20] = getLocations(tokenId);
+        parts[21] = '</text></svg>';
 
-        parts[16] = '</text><text x="40" y="120" class="words">';
-
-        parts[17] = getAdjectives(tokenId);
-
-        parts[18] =  getArchetypes(tokenId);
-
-        parts[19] = '</text><text x="40" y="120" class="words">';
-
-        parts[20] = getVerbs(tokenId);
-
-        parts[21] = getObjects(tokenId);
-
-        parts[22] = '</text><text x="40" y="160" class="words">';
-
-        parts[23] = getLocations(tokenId);
-
-        parts[24] = '</text></svg>';
-
-        string memory output = string(abi.encodePacked(parts[0], parts[1], parts[2], parts[3], parts[4], parts[5], parts[6], parts[7], parts[8]));
-        output = string(abi.encodePacked(output, parts[9], parts[10], parts[11], parts[12], parts[13], parts[14], parts[15], parts[16], parts[17], parts[18]));
-        output = string(abi.encodePacked(output, parts[19], parts[20], parts[21], parts[22], parts[23], parts[24]));
+        string memory output = string(abi.encodePacked(parts[0], parts[1], parts[2], parts[3], parts[4], parts[5], parts[6], parts[7], parts[8], parts[9], parts[10]));
+        output = string(abi.encodePacked(output, parts[11], parts[12], parts[13], parts[14], parts[15], parts[16], parts[17], parts[18], parts[19], parts[20], parts[21]));
         string memory json = Base64.encode(bytes(string(abi.encodePacked('{"name": "Filmmaker #', toString(tokenId), '", "description": "FilmmakerDAO is the DAO for filmmakers and film enthusiasts. The storytelling industry is opaque, gatekept, and faces a cold start problem. Our mission is to empower every human on earth to tell stories. By redefining how storytelling is produced, we redefine how legacy and culture are created and our identity as a society.", "image": "data:image/svg+xml;base64,', Base64.encode(bytes(output)), '"}'))));
         output = string(abi.encodePacked('data:application/json;base64,', json));
 

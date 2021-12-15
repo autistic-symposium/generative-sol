@@ -1,8 +1,8 @@
 # FilmmakerDAO Season 0 NFT Drop
 
 * Smart contract for [FilmmakerDAO](http://filmmakerdao.com/) season 0 NFT drop.
-* Based on the [Loot Project](https://www.lootproject.com/)
-* **YOU CAN USE AND ADAPT THIS SCRIPT HOWEVER YOU WANT BUT PLEASE ADD ATTRIBUTION TO [@bt3gl](https://twitter.com/bt3gl) AS THE AUTHOR**
+* Based on the [Loot Project](https://www.lootproject.com/) and [DeveloperDAO](https://www.developerdao.com/).
+* **YOU CAN USE AND ADAPT THIS SCRIPT BUT PLEASE ADD ATTRIBUTION TO [@bt3gl](https://twitter.com/bt3gl) AS THE AUTHOR**
 
 ---
 

@@ -195,7 +195,6 @@ contract FilmmakerDAO is ERC721Enumerable, ReentrancyGuard, Ownable {
         "mumblecore ",
         "musical ",
         "korean bew wave ",
-        "japanese erotica ",
         "acid western ",
         "dogme 95 ",
         "french new wave   ",
@@ -206,15 +205,14 @@ contract FilmmakerDAO is ERC721Enumerable, ReentrancyGuard, Ownable {
         "epic ",
         "psychological thriller ",
         "torture porn ",
-        "snuff film ",
-        "samurai film ",
-        "wuXia film ",
+        "snuff ",
+        "samurai ",
+        "wuXia ",
         "bollywood ",
-        "gangster film ",
+        "gangster ",
         "courtroom ",
         "mockumentary ",
-        "monster movie ",
-        "oscar bait "
+        "monster "
     ];
 
     string[] private medium = [
@@ -227,7 +225,7 @@ contract FilmmakerDAO is ERC721Enumerable, ReentrancyGuard, Ownable {
         "narrative audio,",
         "IMAX film,",
         "Tik Tok video,",
-        "NFT collection,",
+        "NFT video collection,",
         "teleplay,",
         "Youtube series",
         "theatre production,"
@@ -254,7 +252,6 @@ contract FilmmakerDAO is ERC721Enumerable, ReentrancyGuard, Ownable {
         "Budapest,",
         "Sao Paulo,",
         "Lagos,",
-        "Gold Coast,",
         "Paris,",
         "Tokyo,",
         "Barcelona,",
@@ -291,7 +288,6 @@ contract FilmmakerDAO is ERC721Enumerable, ReentrancyGuard, Ownable {
         " Dark Lord ",
         " Wojak ",
         " Ohmie ",
-        " Chad ",
         " Soyjak ",
         " Pepe ",
         " Tetranode ",
@@ -310,7 +306,7 @@ contract FilmmakerDAO is ERC721Enumerable, ReentrancyGuard, Ownable {
         " kisses ",
         " run away from ",
         " fights against ",
-        " escapes from ",
+        " escapes with ",
         " falls on ",
         " thinks about ",
         " drives away from ",
@@ -343,24 +339,38 @@ contract FilmmakerDAO is ERC721Enumerable, ReentrancyGuard, Ownable {
         "a M1911 pistol",
         "a small plastic bird",
         "a giant bowtie",
+        "a golf cart",
+        "a bowl full of pasta",
+        "an old laptop",
+        "a map to a treasure",
+        "a trash can",
+        "a incriminating Polaroid",
+        "a shiny watch",
         "a purple toy hat",
         "a half doobie",
         "a giant ugly sweater",
-        "a jug full of drugs"
+        "a jug full of drugs",
+        "a Magick book",
+        "a poisoned apple",
+        "a green balloon"
     ];
 
     string[] private titles = [
         "acclaimed",
         "recognized",
-        "exalted",
+        "Youtube famous",
         "renowned",
-        "celebrated",
+        "a BAFTA winner",
+        "a Golden Globe winner",
+        "a DGA Award winner",
         "distinguished",
-        "impressive",
-        "eminent",
-        "popular",
+        "Instagram famous",
+        "Twitter popular",
+        "an Independent Spirit winner",
+        "a MTV Awards winner",
         "respected",
-        "an oscar-winner",
+        "an Oscar winner",
+        "Teen Choice Awards winner",
         "famed",
         "a rockstar"
     ];
@@ -403,7 +413,6 @@ contract FilmmakerDAO is ERC721Enumerable, ReentrancyGuard, Ownable {
         "romantic ",
         "mad ",
         "stoned ",
-        "irate ",
         "funny ",
         "spooky ",
         "sad ",
@@ -413,29 +422,29 @@ contract FilmmakerDAO is ERC721Enumerable, ReentrancyGuard, Ownable {
     ];
 
     string[] private locations = [
-        "in the hallway.",
-        "in the bedroom.",
-        "at the park.",
-        "in the office.",
+        "under a bridge.",
+        "at some park.",
+        "in a mall.",
         "in the kitchen.",
-        "in the street.",
-        "at the airport.",
-        "in the car.",
-        "at church.",
-        "at school.",
-        "at the supermarket.",
-        "in Outer Space.",
+        "at Starbucks.",
+        "at some airport.",
+        "in some church.",
+        "at some school.",
+        "at some supermarket.",
         "in the Metaverse.",
-        "in the desert.",
-        "in the rain forest.",
-        "in the bathroom.",
-        "in the shower.",
-        "in the jungle.",
+        "in a desert.",
+        "in a forest.",
+        "in a bathroom.",
+        "in a shower.",
+        "in a jungle.",
+        "in a deli",
         "at the therapist's office.",
         "at the mother in law's bedroom.",
-        "at the golf course.",
-        "at the bowling alley.",
-        "at the DMV."
+        "at a golf course.",
+        "at a bowling alley.",
+        "at the DMV.",
+        "at McDonald's.",
+        "at 7-Eleven."
     ];
 
     string[] private colors = [
@@ -449,43 +458,44 @@ contract FilmmakerDAO is ERC721Enumerable, ReentrancyGuard, Ownable {
     ];
 
     function random(string memory input) internal pure returns (uint256) {
-        return uint256(keccak256(abi.encodePacked(input)));
+        uint256 seed = uint256(keccak256(abi.encodePacked(input)));
+        return uint256(keccak256(abi.encodePacked(seed)));
     }
 
     function getGenres(uint256 tokenId) public view returns (string memory) {
-        return pluck(tokenId, "GENRES", genres);
+        return pluck(tokenId, "A", genres);
     }
 
     function getMediums(uint256 tokenId) public view returns (string memory) {
-        return pluck(tokenId, "MEDIUMS", medium);
+        return pluck(tokenId, "AB", medium);
     }
 
     function getCities(uint256 tokenId) public view returns (string memory) {
-        return pluck(tokenId, "CITIES", cities);
+        return pluck(tokenId, "ABC", cities);
     }
 
     function getArchetypes(uint256 tokenId) public view returns (string memory) {
-        return pluck(tokenId, "ARCHETYPES", archetypes);
+        return pluck(tokenId, "ABCD", archetypes);
     }
 
     function getVerbs(uint256 tokenId) public view returns (string memory) {
-        return pluck(tokenId, "VERBS", verbs);
+        return pluck(tokenId, "ABCDE", verbs);
     }
 
     function getObjects(uint256 tokenId) public view returns (string memory) {
-        return pluck(tokenId, "OBJCTS", objects);
+        return pluck(tokenId, "ABCDEF", objects);
     }
 
     function getLocations(uint256 tokenId) public view returns (string memory) {
-        return pluck(tokenId, "LOCATIONS", locations);
+        return pluck(tokenId, "ABCDEFG", locations);
     }
 
     function getAdjectives(uint256 tokenId) public view returns (string memory) {
-        return pluck(tokenId, "ADJETIVES", adjetives);
+        return pluck(tokenId, "ABCDEFGI", adjetives);
     }
 
     function getTitles(uint256 tokenId) public view returns (string memory) {
-        return pluck(tokenId, "TITLES", titles);
+        return pluck(tokenId, "ABCDEFGIH", titles);
     }
 
     function pluck(uint256 tokenId, string memory keyPrefix, string[] memory sourceArray) internal pure returns (string memory) {
@@ -516,7 +526,7 @@ contract FilmmakerDAO is ERC721Enumerable, ReentrancyGuard, Ownable {
         parts[11] = getMediums(tokenId);
         parts[12] = '</text><text x="40" y="180" class="base">';
         parts[13] = 'particularly for that ';
-        parts[14] = getAdjectives(tokenId+1);
+        parts[14] = getAdjectives(tokenId+137);
         parts[15] = ' scene in ';
         parts[16] = getCities(tokenId);
         parts[17] = '</text><text x="40" y="200" class="base">';

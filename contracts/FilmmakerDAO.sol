@@ -361,7 +361,7 @@ contract FilmmakerDAO is ERC721Enumerable, ReentrancyGuard, Ownable {
         "respected",
         "an oscar-winner",
         "famed",
-        "a star"
+        "a rockstar"
     ];
 
     string[] private adjetives = [

@@ -482,9 +482,31 @@ contract FilmmakerDAO is ERC721Enumerable, ReentrancyGuard, Ownable {
         "rom-com ",
         "drama ",
         "romantic thriller ",
-        "black Comedy ",
+        "black comedy ",
         "anime ",
-        "mumblecore "
+        "mumblecore ",
+        "musical ",
+        "korean bew wave ",
+        "japanese erotica ",
+        "acid western ",
+        "dogme 95 ",
+        "french new wave   ",
+        "italian neo realism ",
+        "pulp ",
+        "noir ",
+        "screwball comedy ",
+        "epic ",
+        "psychological thriller ",
+        "torture porn ",
+        "snuff film ",
+        "samurai film ",
+        "wuXia film ",
+        "bollywood ",
+        "gangster film ",
+        "courtroom ",
+        "mockumentary ",
+        "monster movie ",
+        "oscar bait "
     ];
 
     string[] private medium = [
@@ -496,7 +518,11 @@ contract FilmmakerDAO is ERC721Enumerable, ReentrancyGuard, Ownable {
         "podcast,",
         "VR film,",
         "narrative audio,",
-        "IMAX film,"
+        "IMAX film,",
+        "Tik Tok,",
+        "NFT,",
+        "teleplay,",
+        "theatre production,"
     ];
 
     string[] private cities = [
@@ -533,6 +559,21 @@ contract FilmmakerDAO is ERC721Enumerable, ReentrancyGuard, Ownable {
         "Ramallah",
         "Goa",
         "Rio de Janeiro"
+        "Atlantis",
+        "Wakanda",
+        "Agrabah",
+        "New Orleans",
+        "Middle Earth",
+        "Seoul",
+        "Sarajevo",
+        "Shaghai",
+        "Beijing",
+        "Macau",
+        "Kyoto",
+        "Singapore",
+        "Mars",
+        "Outer Space",
+        "Alien Planet"
     ];
 
     string[] private archetypes = [
@@ -554,7 +595,21 @@ contract FilmmakerDAO is ERC721Enumerable, ReentrancyGuard, Ownable {
         " nihilist ",
         " poet ",
         " funny dude ",
-        " nomad "
+        " nomad ",
+        " anti-hero ",
+        " dark Lord ",
+        " wojak ",
+        " ohmie ",
+        " chad ",
+        " soyjak ",
+        " pepe ",
+        " tetranode ",
+        " sisyphus ",
+        " God ",
+        " manic pixie dream girl ",
+        " Timothee Chalamet type ",
+        " Pikachu ",
+        " superhero "
     ];
 
     string[] private verbs = [
@@ -749,7 +804,7 @@ contract FilmmakerDAO is ERC721Enumerable, ReentrancyGuard, Ownable {
         output = string(abi.encodePacked(output, parts[10], parts[11], parts[12], parts[13], parts[14], parts[15], parts[16], parts[17]));
         output = string(abi.encodePacked(output, parts[18], parts[19], parts[20], parts[21]));
 
-        string memory json = Base64.encode(bytes(string(abi.encodePacked('{"name": "Filmmaker #', toString(tokenId), '", "description": "FilmmakerDAO is the DAO for filmmakers and film enthusiasts. The storytelling industry is opaque, gatekept, and faces a cold start problem. Our mission is to empower every human on earth to tell stories. By redefining how storytelling is produced, we redefine how legacy and culture are created and our identity as a society.", "image": "data:image/svg+xml;base64,', Base64.encode(bytes(output)), '"}'))));
+        string memory json = Base64.encode(bytes(string(abi.encodePacked('{"name": "Filmmaker #', toString(tokenId), '", "description": "The Storytelling card collection is the FilmmakerDAO NFT series for season 0. It is a randomized Story generated and stored on-chain. We thought Loot was a great project to spur further creative thought, and we hope Filmmakers can carry on that idea. Feel free to use your Storyteller Card in any way you want!", "image": "data:image/svg+xml;base64,', Base64.encode(bytes(output)), '"}'))));
         output = string(abi.encodePacked('data:application/json;base64,', json));
 
         return output;

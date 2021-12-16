@@ -1,8 +1,7 @@
-# FilmmakerDAO Season 0 NFT Drop
+# FilmmakerDAO Season 0 Loot
 
-* Smart contract for [FilmmakerDAO](http://filmmakerdao.com/) season 0 NFT drop.
-* Based on the [Loot Project](https://www.lootproject.com/)
-* **YOU CAN USE AND ADAPT THIS SCRIPT HOWEVER YOU WANT BUT PLEASE ADD ATTRIBUTION TO [@bt3gl](https://twitter.com/bt3gl) AS THE AUTHOR**
+FilmmakerDAO Season 0 NFT drop is a [Loot Project](https://www.lootproject.com/) inspired NFT collection. The NFT SVGs are generated randomly on chain with the metadata in the smart contract. You may deploy this smart contract on Ethereum or EVM compatible network.
+
 
 ---
 
@@ -49,19 +48,47 @@ You should be able to see it at [Rinkeby Etherscan](https://rinkeby.etherscan.io
 npx hardhat console --network rinkeby
 ```
 
+Ad-hoc minting:
 
+```
+> const Film = await ethers.getContractFactory('FilmmakerDAO');
+> const film = await Film.attach('<contract>')
+> await film.claim(<tokenID>)
 
-
+```
 
 You should be able to see the NFT on [OpenSea Testnet](https://testnets.opensea.io/account).
 
 
+### Verify Smart Contract
+
+Install Hardhat Etherscan plugin (compatible with Etherscan and Polygonscan)
+
+```
+npm install --save-dev @nomiclabs/hardhat-etherscan
+```
+
+Verify the smart contract with contract address
+
+```
+npx hardhat verify --network rinkeby YOUR_CONTRACT_ADDRESS
+```
+
 ### Useful commands
+
+Test a smart contract:
+
+```bash
+npx hardhat test
+```
+
+Clean artifacts:
 
 ```bash
 npx hardhat clean
-npx hardhat test
 ```
+
+
 
 ---
 

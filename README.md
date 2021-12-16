@@ -1,6 +1,6 @@
 # FilmmakerDAO Season 0 NFT Drop
 
-FilmmakerDAO Season 0 NFT drop, named "Storytelling Card", is a "[Loot Project](https://www.lootproject.com/)"-inspired ERC721 collection. The NFT SVGs are generated randomly on chain with the metadata in the smart contract. 
+FilmmakerDAO Season 0 NFT drop, named **Storytelling Card**, is a "[Loot Project](https://www.lootproject.com/)"-inspired ERC721 collection. The NFT SVGs are generated randomly on chain with the metadata in the smart contract. 
 
 You may deploy this smart contract on Ethereum or EVM compatible network.
 

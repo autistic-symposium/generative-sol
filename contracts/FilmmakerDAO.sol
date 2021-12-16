@@ -605,7 +605,7 @@ contract FilmmakerDAO is ERC721Enumerable, ReentrancyGuard, Ownable {
         " tetranode ",
         " sisyphus ",
         " God ",
-        " manic pixie dream girl ",
+        " pixie dream girl ",
         " Timothee Chalamet type ",
         " Pikachu ",
         " superhero "
@@ -623,14 +623,14 @@ contract FilmmakerDAO is ERC721Enumerable, ReentrancyGuard, Ownable {
         " thinks about ",
         " buys ",
         " drives away from ",
-        " texts ",
+        " tries to kidnap  ",
         " makes love with ",
         " walks away from ",
         " writes about ",
         " yells at ",
         " eats a piece of ",
         " plays with ",
-        " jumps from ",
+        " jumps into ",
         " sings with ",
         " dances with ",
         " swims away from ",
@@ -641,7 +641,7 @@ contract FilmmakerDAO is ERC721Enumerable, ReentrancyGuard, Ownable {
     ];
 
     string[] private objects = [
-        "a blue umbrella",
+        "a ugly painting",
         "a shinning diamond",
         "a money bag",
         "a tiny skateboard",
@@ -650,7 +650,10 @@ contract FilmmakerDAO is ERC721Enumerable, ReentrancyGuard, Ownable {
         "a cup of diet coke",
         "a sharp knife",
         "a fake gun",
-        "a small dog"
+        "a small dog",
+        "a tiny bowtie",
+        "a purple hat",
+        "a giant T-shirt"
     ];
 
     string[] private titles = [
@@ -774,11 +777,19 @@ contract FilmmakerDAO is ERC721Enumerable, ReentrancyGuard, Ownable {
         return output;
     }
 
+    function getColor(uint256 tokenId) internal pure returns (string memory) {
+        uint256 randm = random(string(abi.encodePacked("Color", toString(tokenId))));
+        uint256 color256 = randm % uint256(0xffffff);
+        string memory stringColor = Strings.toHexString(color256);
+        return stringColor;
+    }
+
     function tokenURI(uint256 tokenId) override public view returns (string memory) {
         string[23] memory parts;
         string memory idstr = toString(tokenId);
+        string memory fillColor = getColor(tokenId);
 
-        parts[0] = '<svg xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMinYMin meet" viewBox="0 0 350 350"><style>.base { fill: white; font-family: arial; font-size: 12px; </style><rect width="100%" height="100%" fill="black" /><text x="40" y="100" class="base">';
+        parts[0] = '<svg xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMinYMin meet" viewBox="0 0 350 350"><style>.cool {fill: yellow; } .base { fill: white; font-family: arial; font-size: 12px; </style><rect width="100%" height="100%" fill="black" /><text x="40" y="100" class="cool">';
         parts[1] = 'You are filmmaker #';
         parts[2] = idstr;
         parts[3] = '</text><text x="40" y="140" class="base">';

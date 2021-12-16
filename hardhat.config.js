@@ -4,11 +4,13 @@
  require("@nomiclabs/hardhat-waffle");
  require("@nomiclabs/hardhat-ethers");
  require("@nomiclabs/hardhat-truffle5");
+ require("@nomiclabs/hardhat-etherscan");
  
  require("dotenv").config();
  
 const privateKey = process.env.PRIVATE_KEY;
 const apiEndpoint = process.env.API_ENDPOINT;
+const apiEtherscan = process.env.API_ETHERSCAN;
 
 
 task("accounts", "Prints the list of accounts", async (taskArgs, hre) => {
@@ -36,4 +38,7 @@ module.exports = {
       accounts: [privateKey]
     }
   },
+  etherscan: {
+    apiKey: apiEtherscan
+  }
 };

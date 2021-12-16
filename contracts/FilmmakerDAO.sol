@@ -226,9 +226,10 @@ contract FilmmakerDAO is ERC721Enumerable, ReentrancyGuard, Ownable {
         "VR film,",
         "narrative audio,",
         "IMAX film,",
-        "Tik Tok,",
-        "NFT,",
+        "Tik Tok video,",
+        "NFT collection,",
         "teleplay,",
+        "Youtube series",
         "theatre production,"
     ];
 
@@ -271,45 +272,43 @@ contract FilmmakerDAO is ERC721Enumerable, ReentrancyGuard, Ownable {
 
     string[] private archetypes = [
         " lover ",
-        " witch "
+        " witch ",
         " hero ",
         " magician ",
         " outlaw ",
-        " explorer ",
-        " sage ",
-        " innocent child ",
-        " creator ",
-        " ruler ",
-        " caregiver ",
+        " shaman ",
+        " teenager ",
+        " writer ",
+        " monarch ",
         " guy next door ",
-        " jester ",
-        " villian ",
+        " supervillain ",
         " anarchist ",
         " nihilist ",
         " poet ",
-        " funny dude ",
+        " dude ",
         " nomad ",
         " anti-hero ",
-        " dark Lord ",
-        " wojak ",
-        " ohmie ",
-        " chad ",
-        " soyjak ",
-        " pepe ",
-        " tetranode ",
-        " sisyphus ",
+        " Dark Lord ",
+        " Wojak ",
+        " Ohmie ",
+        " Chad ",
+        " Soyjak ",
+        " Pepe ",
+        " Tetranode ",
+        " Sisyphus ",
         " God ",
-        " pixie dream girl ",
-        " Timothee Chalamet type ",
+        " pixie girl ",
+        " Timothee type ",
         " Pikachu ",
+        " clown ",
         " superhero "
     ];
 
     string[] private verbs = [
-        " defeats ",
-        " persuades ",
+        " breaks into pieces ",
+        " steals  ",
         " kisses ",
-        " run from ",
+        " run away from ",
         " fights against ",
         " escapes from ",
         " falls on ",
@@ -325,27 +324,29 @@ contract FilmmakerDAO is ERC721Enumerable, ReentrancyGuard, Ownable {
         " jumps into ",
         " sings with ",
         " dances with ",
-        " swims away from ",
         " sleeps with ",
         " flirts with ",
         " marries ",
-        " assaults "
+        " mess around with ",
+        " dreams about "
     ];
 
     string[] private objects = [
         "a ugly painting",
         "a shinning diamond",
-        "a money bag",
+        "a bag full of money",
         "a tiny skateboard",
-        "a dead cell phone",
+        "a dead phone",
         "an empty coffee cup",
-        "a cup of diet coke",
-        "a sharp knife",
-        "a fake gun",
-        "a small dog",
-        "a tiny bowtie",
-        "a purple hat",
-        "a giant sweater"
+        "a can of diet coke",
+        "a large red axe",
+        "a M1911 pistol",
+        "a small plastic bird",
+        "a giant bowtie",
+        "a purple toy hat",
+        "a half doobie",
+        "a giant ugly sweater",
+        "a jug full of drugs"
     ];
 
     string[] private titles = [
@@ -366,25 +367,24 @@ contract FilmmakerDAO is ERC721Enumerable, ReentrancyGuard, Ownable {
 
     string[] private adjetives = [
         "adorable ",
-        "adventurous ",
+        "vivid ",
         "aggressive ",
         "annoying ",
         "awful ",
-        "bright ",
-        "brainy ",
+        "intense ",
+        "clever ",
         "cheerful ",
         "charming ",
         "courageous ",
         "cruel ",
         "defiant ",
         "disturbed ",
-        "doubtful ",
+        "brilliant ",
         "delightful ",
         "dark ",
         "cute ",
         "terrible ",
-        "foolish ",
-        "funny ",
+        "silly ",
         "grotesque ",
         "grumpy ",
         "hilarious ",
@@ -394,7 +394,22 @@ contract FilmmakerDAO is ERC721Enumerable, ReentrancyGuard, Ownable {
         "naughty ",
         "repulsive ",
         "wicked ",
-        "sexy "
+        "sexy ",
+        "ingenious ",
+        "genius ",
+        "dark ",
+        "heroic ",
+        "intrepid ",
+        "romantic ",
+        "mad ",
+        "stoned ",
+        "irate ",
+        "funny ",
+        "spooky ",
+        "sad ",
+        "powerful ",
+        "raging ",
+        "creepy "
     ];
 
     string[] private locations = [
@@ -410,13 +425,13 @@ contract FilmmakerDAO is ERC721Enumerable, ReentrancyGuard, Ownable {
         "at school.",
         "at the supermarket.",
         "in Outer Space.",
-        "in the Metavese.",
+        "in the Metaverse.",
         "in the desert.",
-        "in the rain forrest.",
+        "in the rain forest.",
         "in the bathroom.",
         "in the shower.",
         "in the jungle.",
-        "at the therapists office.",
+        "at the therapist's office.",
         "at the mother in law's bedroom.",
         "at the golf course.",
         "at the bowling alley.",
@@ -484,7 +499,7 @@ contract FilmmakerDAO is ERC721Enumerable, ReentrancyGuard, Ownable {
     }
 
     function tokenURI(uint256 tokenId) override public view returns (string memory) {
-        string[25] memory parts;
+        string[27] memory parts;
         string memory idstr = toString(tokenId);
 
         parts[0] = '<svg xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMinYMin meet" viewBox="0 0 350 350"><style>.cool {fill: ';
@@ -501,23 +516,25 @@ contract FilmmakerDAO is ERC721Enumerable, ReentrancyGuard, Ownable {
         parts[11] = getMediums(tokenId);
         parts[12] = '</text><text x="40" y="180" class="base">';
         parts[13] = 'particularly for that ';
-        parts[14] = getAdjectives(tokenId);
+        parts[14] = getAdjectives(tokenId+1);
         parts[15] = ' scene in ';
         parts[16] = getCities(tokenId);
         parts[17] = '</text><text x="40" y="200" class="base">';
         parts[18] = ' when the ';
-        parts[19] = getArchetypes(tokenId);
-        parts[20] = getVerbs(tokenId);
-        parts[21] = getObjects(tokenId);
-        parts[22] = '</text><text x="40" y="220" class="base">';
-        parts[23] = getLocations(tokenId);
-        parts[24] = '</text></svg>';
+        parts[19] = getAdjectives(tokenId);
+        parts[20] = getArchetypes(tokenId);
+        parts[21] = '</text><text x="40" y="220" class="base">';
+        parts[22] = getVerbs(tokenId);
+        parts[23] = getObjects(tokenId);
+        parts[24] = '</text><text x="40" y="240" class="base">';
+        parts[25] = getLocations(tokenId);
+        parts[26] = '</text></svg>';
 
         string memory output = string(abi.encodePacked(parts[0], parts[1], parts[2], parts[3], parts[4], parts[5], parts[6], parts[7], parts[8], parts[9]));
-        output = string(abi.encodePacked(output, parts[10], parts[11], parts[12], parts[13], parts[14], parts[15], parts[16], parts[17]));
-        output = string(abi.encodePacked(output, parts[18], parts[19], parts[20], parts[21], parts[22], parts[23], parts[24]));
+        output = string(abi.encodePacked(output, parts[10], parts[11], parts[12], parts[13], parts[14], parts[15], parts[16], parts[17], parts[18]));
+        output = string(abi.encodePacked(output, parts[19], parts[20], parts[21], parts[22], parts[23], parts[24], parts[25], parts[26]));
 
-        string memory json = Base64.encode(bytes(string(abi.encodePacked('{"name": "Filmmaker #', toString(tokenId), '", "description": "The Storytelling card collection is the FilmmakerDAO NFT series for season 0. It is a randomized Story generated and stored on-chain. We thought Loot was a great project to spur further creative thought, and we hope Filmmakers can carry on that idea. Feel free to use your Storyteller Card in any way you want!", "image": "data:image/svg+xml;base64,', Base64.encode(bytes(output)), '"}'))));
+        string memory json = Base64.encode(bytes(string(abi.encodePacked('{"name": "Filmmaker #', toString(tokenId), '", "description": "The Storytelling card collection is the FilmmakerDAO generative storytelling NFT series for season 0. It is a randomized story generated and stored on-chain. We thought Loot was a great project to spur further creative thought, and we hope Filmmakers can carry on that idea. Feel free to use your Storyteller Card in any way you want!", "image": "data:image/svg+xml;base64,', Base64.encode(bytes(output)), '"}'))));
         output = string(abi.encodePacked('data:application/json;base64,', json));
 
         return output;
@@ -529,7 +546,7 @@ contract FilmmakerDAO is ERC721Enumerable, ReentrancyGuard, Ownable {
     }
 
     function ownerClaim(uint256 tokenId) public nonReentrant onlyOwner {
-        require(tokenId > 1337 && tokenId < 1999, "Story card ID invalid");
+        require(tokenId > 1337 && tokenId < 1999, "Reserved Token ID");
         _safeMint(owner(), tokenId);
     }
 

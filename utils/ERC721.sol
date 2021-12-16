@@ -151,7 +151,7 @@ contract ERC721 is Context, ERC165, IERC721, IERC721Metadata {
         _mint(to, tokenId);
         require(
             _checkOnERC721Received(address(0), to, tokenId, _data),
-            "transfer to non ERC721Receiver implementer"
+            "transfer to non ERC721Receiver"
         );
     }
 
@@ -215,7 +215,7 @@ contract ERC721 is Context, ERC165, IERC721, IERC721Metadata {
                 return retval == IERC721Receiver(to).onERC721Received.selector;
             } catch (bytes memory reason) {
                 if (reason.length == 0) {
-                    revert("transfer to non-ERC721Receiver implementer");
+                    revert("transfer to non-ERC721Receiver");
                 } else {
                     assembly {
                         revert(add(32, reason), mload(reason))

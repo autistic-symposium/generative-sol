@@ -45,7 +45,7 @@ library Strings {
             buffer[i] = _HEX_SYMBOLS[value & 0xf];
             value >>= 4;
         }
-        require(value == 0, "Strings: hex length insufficient");
+        require(value == 0, "hex length insufficient");
         return string(buffer);
     }
 }

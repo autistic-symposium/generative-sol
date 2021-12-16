@@ -481,10 +481,10 @@ contract FilmmakerDAO is ERC721Enumerable, ReentrancyGuard, Ownable {
     function tokenURI(uint256 tokenId) override public view returns (string memory) {
         string[25] memory parts;
         string memory idstr = toString(tokenId);
-        string memory fillColor = getColor(tokenId);
+        string memory cstr = 'blue';
 
-        parts[0] = '<svg xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMinYMin meet" viewBox="0 0 350 350"><style>.cool {fill: #';
-        parts[1] = fillColor;
+        parts[0] = '<svg xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMinYMin meet" viewBox="0 0 350 350"><style>.cool {fill: ';
+        parts[1] = cstr;
         parts[2] = '; } .base { fill: white; font-family: arial; font-size: 12px; </style><rect width="100%" height="100%" fill="black" /><text x="40" y="100" class="cool">';
         parts[3] = 'You are filmmaker #';
         parts[4] = idstr;

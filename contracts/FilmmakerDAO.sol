@@ -2,7 +2,6 @@
 pragma solidity ^0.8.1;
 
 /**
-______________________________________________________,_________________________
 _______________________________________________,╥▄▓█████________________________
 ________________________________________╓▄▄▄▒└    └╙▀▀██▌_______________________
 _________________________________,-≤░░╙▀███████▓▄▄ ,»ⁿ"_└_______________________
@@ -20,57 +19,17 @@ _________________________██▓▓███ FilmmakerDAO ██████�
 _________________________███████████████████████████████▌_______________________
 _________________________▓██████████▓████████╫██████████`_______________________
 __________________________└▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀_________________________
-________________________________________________________________________________
 ______________________________________________________________________________*/
 
 import {Strings} from "../utils/Strings.sol";
 import {Address} from "../utils/Address.sol";
 import {Base64} from "../utils/Base64.sol";
+import {ERC721} from "../utils/ERC721.sol";
+import {IERC721} from "../utils/IERC721.sol";
+import {IERC165} from "../utils/IERC165.sol";
+import {ERC165} from "../utils/ERC165.sol";
+import {Context} from "../utils/Context.sol";
 
-
-interface IERC165 {
-    function supportsInterface(bytes4 interfaceId) external view returns (bool);
-}
-
-
-interface IERC721 is IERC165 {
-    event Transfer(address indexed from, address indexed to, uint256 indexed tokenId);
-    event Approval(address indexed owner, address indexed approved, uint256 indexed tokenId);
-    event ApprovalForAll(address indexed owner, address indexed operator, bool approved);
-    function balanceOf(address owner) external view returns (uint256 balance);
-    function ownerOf(uint256 tokenId) external view returns (address owner);
-    function safeTransferFrom(
-        address from,
-        address to,
-        uint256 tokenId
-    ) external;
-    function transferFrom(
-        address from,
-        address to,
-        uint256 tokenId
-    ) external;
-    function approve(address to, uint256 tokenId) external;
-    function getApproved(uint256 tokenId) external view returns (address operator);
-    function setApprovalForAll(address operator, bool _approved) external;
-    function isApprovedForAll(address owner, address operator) external view returns (bool);
-    function safeTransferFrom(
-        address from,
-        address to,
-        uint256 tokenId,
-        bytes calldata data
-    ) external;
-}
-
-
-abstract contract Context {
-    function _msgSender() internal view virtual returns (address) {
-        return msg.sender;
-    }
-
-    function _msgData() internal view virtual returns (bytes calldata) {
-        return msg.data;
-    }
-}
 
 
 abstract contract Ownable is Context {
@@ -126,261 +85,10 @@ abstract contract ReentrancyGuard {
 }
 
 
-interface IERC721Receiver {
-    function onERC721Received(
-        address operator,
-        address from,
-        uint256 tokenId,
-        bytes calldata data
-    ) external returns (bytes4);
-}
-
-
-interface IERC721Metadata is IERC721 {
-    function name() external view returns (string memory);
-    function symbol() external view returns (string memory);
-    function tokenURI(uint256 tokenId) external view returns (string memory);
-}
-
-
-abstract contract ERC165 is IERC165 {
-    function supportsInterface(bytes4 interfaceId) public view virtual override returns (bool) {
-        return interfaceId == type(IERC165).interfaceId;
-    }
-}
-
-
-contract ERC721 is Context, ERC165, IERC721, IERC721Metadata {
-    using Address for address;
-    using Strings for uint256;
-
-    string private _name;
-    string private _symbol;
-    mapping(uint256 => address) private _owners;
-    mapping(address => uint256) private _balances;
-    mapping(uint256 => address) private _tokenApprovals;
-    mapping(address => mapping(address => bool)) private _operatorApprovals;
-    constructor(string memory name_, string memory symbol_) {
-        _name = name_;
-        _symbol = symbol_;
-    }
-
-    function supportsInterface(bytes4 interfaceId) public view virtual override(ERC165, IERC165) returns (bool) {
-        return
-            interfaceId == type(IERC721).interfaceId ||
-            interfaceId == type(IERC721Metadata).interfaceId ||
-            super.supportsInterface(interfaceId);
-    }
-
-    function balanceOf(address owner) public view virtual override returns (uint256) {
-        require(owner != address(0), "ERC721: balance query for the zero address");
-        return _balances[owner];
-    }
-
-    function ownerOf(uint256 tokenId) public view virtual override returns (address) {
-        address owner = _owners[tokenId];
-        require(owner != address(0), "ERC721: owner query for nonexistent token");
-        return owner;
-    }
-
-    function name() public view virtual override returns (string memory) {
-        return _name;
-    }
-
-    function symbol() public view virtual override returns (string memory) {
-        return _symbol;
-    }
-
-    function tokenURI(uint256 tokenId) public view virtual override returns (string memory) {
-        require(_exists(tokenId), "ERC721Metadata: URI query for nonexistent token");
-
-        string memory baseURI = _baseURI();
-        return bytes(baseURI).length > 0 ? string(abi.encodePacked(baseURI, tokenId.toString())) : "";
-    }
-
-    function _baseURI() internal view virtual returns (string memory) {
-        return "";
-    }
-
-    function approve(address to, uint256 tokenId) public virtual override {
-        address owner = ERC721.ownerOf(tokenId);
-        require(to != owner, "ERC721: approval to current story-owner");
-
-        require(
-            _msgSender() == owner || isApprovedForAll(owner, _msgSender()),
-            "ERC721: approve story-caller is not owner nor approved for all"
-        );
-
-        _approve(to, tokenId);
-    }
-
-    function getApproved(uint256 tokenId) public view virtual override returns (address) {
-        require(_exists(tokenId), "ERC721: approved query for nonexistent story-card");
-
-        return _tokenApprovals[tokenId];
-    }
-
-    function setApprovalForAll(address operator, bool approved) public virtual override {
-        require(operator != _msgSender(), "ERC721: approve to story-caller");
-
-        _operatorApprovals[_msgSender()][operator] = approved;
-        emit ApprovalForAll(_msgSender(), operator, approved);
-    }
-
-    function isApprovedForAll(address owner, address operator) public view virtual override returns (bool) {
-        return _operatorApprovals[owner][operator];
-    }
-
-    function transferFrom(
-        address from,
-        address to,
-        uint256 tokenId
-    ) public virtual override {
-        //solhint-disable-next-line max-line-length
-        require(_isApprovedOrOwner(_msgSender(), tokenId), "ERC721: transfer caller is not owner nor approved");
-
-        _transfer(from, to, tokenId);
-    }
-
-    function safeTransferFrom(
-        address from,
-        address to,
-        uint256 tokenId
-    ) public virtual override {
-        safeTransferFrom(from, to, tokenId, "");
-    }
-
-    function safeTransferFrom(
-        address from,
-        address to,
-        uint256 tokenId,
-        bytes memory _data
-    ) public virtual override {
-        require(_isApprovedOrOwner(_msgSender(), tokenId), "ERC721: transfer caller is not owner nor approved");
-        _safeTransfer(from, to, tokenId, _data);
-    }
-
-    function _safeTransfer(
-        address from,
-        address to,
-        uint256 tokenId,
-        bytes memory _data
-    ) internal virtual {
-        _transfer(from, to, tokenId);
-        require(_checkOnERC721Received(from, to, tokenId, _data), "ERC721: transfer to non ERC721Receiver implementer");
-    }
-
-    function _exists(uint256 tokenId) internal view virtual returns (bool) {
-        return _owners[tokenId] != address(0);
-    }
-
-    function _isApprovedOrOwner(address spender, uint256 tokenId) internal view virtual returns (bool) {
-        require(_exists(tokenId), "ERC721: operator query for nonexistent token");
-        address owner = ERC721.ownerOf(tokenId);
-        return (spender == owner || getApproved(tokenId) == spender || isApprovedForAll(owner, spender));
-    }
-
-    function _safeMint(address to, uint256 tokenId) internal virtual {
-        _safeMint(to, tokenId, "");
-    }
-
-    function _safeMint(
-        address to,
-        uint256 tokenId,
-        bytes memory _data
-    ) internal virtual {
-        _mint(to, tokenId);
-        require(
-            _checkOnERC721Received(address(0), to, tokenId, _data),
-            "ERC721: transfer to non ERC721Receiver implementer"
-        );
-    }
-
-    function _mint(address to, uint256 tokenId) internal virtual {
-        require(to != address(0), "ERC721: mint to the zero address");
-        require(!_exists(tokenId), "ERC721: token already minted");
-
-        _beforeTokenTransfer(address(0), to, tokenId);
-
-        _balances[to] += 1;
-        _owners[tokenId] = to;
-
-        emit Transfer(address(0), to, tokenId);
-    }
-
-    function _burn(uint256 tokenId) internal virtual {
-        address owner = ERC721.ownerOf(tokenId);
-
-        _beforeTokenTransfer(owner, address(0), tokenId);
-
-        // Clear approvals
-        _approve(address(0), tokenId);
-
-        _balances[owner] -= 1;
-        delete _owners[tokenId];
-
-        emit Transfer(owner, address(0), tokenId);
-    }
-
-    function _transfer(
-        address from,
-        address to,
-        uint256 tokenId
-    ) internal virtual {
-        require(ERC721.ownerOf(tokenId) == from, "ERC721: transfer of story-card that is not own");
-        require(to != address(0), "ERC721: transfer to the zero address");
-
-        _beforeTokenTransfer(from, to, tokenId);
-        _approve(address(0), tokenId);
-
-        _balances[from] -= 1;
-        _balances[to] += 1;
-        _owners[tokenId] = to;
-
-        emit Transfer(from, to, tokenId);
-    }
-
-    function _approve(address to, uint256 tokenId) internal virtual {
-        _tokenApprovals[tokenId] = to;
-        emit Approval(ERC721.ownerOf(tokenId), to, tokenId);
-    }
-
-    function _checkOnERC721Received(
-        address from,
-        address to,
-        uint256 tokenId,
-        bytes memory _data
-    ) private returns (bool) {
-        if (to.isContract()) {
-            try IERC721Receiver(to).onERC721Received(_msgSender(), from, tokenId, _data) returns (bytes4 retval) {
-                return retval == IERC721Receiver(to).onERC721Received.selector;
-            } catch (bytes memory reason) {
-                if (reason.length == 0) {
-                    revert("ERC721: transfer to non-ERC721Receiver implementer");
-                } else {
-                    assembly {
-                        revert(add(32, reason), mload(reason))
-                    }
-                }
-            }
-        } else {
-            return true;
-        }
-    }
-
-    function _beforeTokenTransfer(
-        address from,
-        address to,
-        uint256 tokenId
-    ) internal virtual {}
-}
-
 
 interface IERC721Enumerable is IERC721 {
     function totalSupply() external view returns (uint256);
-
     function tokenOfOwnerByIndex(address owner, uint256 index) external view returns (uint256 tokenId);
-
     function tokenByIndex(uint256 index) external view returns (uint256);
 }
 
@@ -396,7 +104,7 @@ abstract contract ERC721Enumerable is ERC721, IERC721Enumerable {
     }
 
     function tokenOfOwnerByIndex(address owner, uint256 index) public view virtual override returns (uint256) {
-        require(index < ERC721.balanceOf(owner), "ERC721Enumerable: owner index out of bounds");
+        require(index < ERC721.balanceOf(owner), "owner index out of bounds");
         return _ownedTokens[owner][index];
     }
 
@@ -405,7 +113,7 @@ abstract contract ERC721Enumerable is ERC721, IERC721Enumerable {
     }
 
     function tokenByIndex(uint256 index) public view virtual override returns (uint256) {
-        require(index < ERC721Enumerable.totalSupply(), "ERC721Enumerable: global index out of bounds");
+        require(index < ERC721Enumerable.totalSupply(), "global index out of bounds");
         return _allTokens[index];
     }
 
@@ -533,8 +241,6 @@ contract FilmmakerDAO is ERC721Enumerable, ReentrancyGuard, Ownable {
         "Buenos Aires,",
         "Curitiba,",
         "Lisbon,",
-        "Hamburg,",
-        "Pyongyang,",
         "Berlin,",
         "New Orleans,",
         "Detroit,",
@@ -547,29 +253,17 @@ contract FilmmakerDAO is ERC721Enumerable, ReentrancyGuard, Ownable {
         "Budapest,",
         "Sao Paulo,",
         "Lagos,",
-        "Omaha,",
         "Gold Coast,",
         "Paris,",
         "Tokyo,",
-        "Saint Petersburg,",
-        "San Francisco,",
         "Barcelona,",
-        "Kisumu,",
-        "Ramallah,",
         "Goa,",
         "Rio de Janeiro,",
         "Atlantis,",
-        "Wakanda,",
-        "Agrabah,",
         "New Orleans,",
         "Middle Earth,",
-        "Seoul,",
-        "Sarajevo,",
         "Shaghai,",
-        "Beijing,",
-        "Macau,",
         "Kyoto,",
-        "Singapore,",
         "Mars,",
         "Outer Space,",
         "Alien Planet,"
@@ -785,37 +479,39 @@ contract FilmmakerDAO is ERC721Enumerable, ReentrancyGuard, Ownable {
     }
 
     function tokenURI(uint256 tokenId) override public view returns (string memory) {
-        string[23] memory parts;
+        string[25] memory parts;
         string memory idstr = toString(tokenId);
         string memory fillColor = getColor(tokenId);
 
-        parts[0] = '<svg xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMinYMin meet" viewBox="0 0 350 350"><style>.cool {fill: yellow; } .base { fill: white; font-family: arial; font-size: 12px; </style><rect width="100%" height="100%" fill="black" /><text x="40" y="100" class="cool">';
-        parts[1] = 'You are filmmaker #';
-        parts[2] = idstr;
-        parts[3] = '</text><text x="40" y="140" class="base">';
-        parts[4] = 'You are ';
-        parts[5] = getTitles(tokenId);
-        parts[6] = ' for your ';
-        parts[7] = '</text><text x="40" y="160" class="base">';
-        parts[8] = getGenres(tokenId);
-        parts[9] = getMediums(tokenId);
-        parts[10] = '</text><text x="40" y="180" class="base">';
-        parts[11] = 'particularly for that ';
-        parts[12] = getAdjectives(tokenId);
-        parts[13] = ' scene in ';
-        parts[14] = getCities(tokenId);
-        parts[15] = '</text><text x="40" y="200" class="base">';
-        parts[16] = ' when the ';
-        parts[17] = getArchetypes(tokenId);
-        parts[18] = getVerbs(tokenId);
-        parts[19] = getObjects(tokenId);
-        parts[20] = '</text><text x="40" y="220" class="base">';
-        parts[21] = getLocations(tokenId);
-        parts[22] = '</text></svg>';
+        parts[0] = '<svg xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMinYMin meet" viewBox="0 0 350 350"><style>.cool {fill: #';
+        parts[1] = fillColor;
+        parts[2] = '; } .base { fill: white; font-family: arial; font-size: 12px; </style><rect width="100%" height="100%" fill="black" /><text x="40" y="100" class="cool">';
+        parts[3] = 'You are filmmaker #';
+        parts[4] = idstr;
+        parts[5] = '</text><text x="40" y="140" class="base">';
+        parts[6] = 'You are ';
+        parts[7] = getTitles(tokenId);
+        parts[8] = ' for your ';
+        parts[9] = '</text><text x="40" y="160" class="base">';
+        parts[10] = getGenres(tokenId);
+        parts[11] = getMediums(tokenId);
+        parts[12] = '</text><text x="40" y="180" class="base">';
+        parts[13] = 'particularly for that ';
+        parts[14] = getAdjectives(tokenId);
+        parts[15] = ' scene in ';
+        parts[16] = getCities(tokenId);
+        parts[17] = '</text><text x="40" y="200" class="base">';
+        parts[18] = ' when the ';
+        parts[19] = getArchetypes(tokenId);
+        parts[20] = getVerbs(tokenId);
+        parts[21] = getObjects(tokenId);
+        parts[22] = '</text><text x="40" y="220" class="base">';
+        parts[23] = getLocations(tokenId);
+        parts[24] = '</text></svg>';
 
         string memory output = string(abi.encodePacked(parts[0], parts[1], parts[2], parts[3], parts[4], parts[5], parts[6], parts[7], parts[8], parts[9]));
         output = string(abi.encodePacked(output, parts[10], parts[11], parts[12], parts[13], parts[14], parts[15], parts[16], parts[17]));
-        output = string(abi.encodePacked(output, parts[18], parts[19], parts[20], parts[21], parts[22]));
+        output = string(abi.encodePacked(output, parts[18], parts[19], parts[20], parts[21], parts[22], parts[23], parts[24]));
 
         string memory json = Base64.encode(bytes(string(abi.encodePacked('{"name": "Filmmaker #', toString(tokenId), '", "description": "The Storytelling card collection is the FilmmakerDAO NFT series for season 0. It is a randomized Story generated and stored on-chain. We thought Loot was a great project to spur further creative thought, and we hope Filmmakers can carry on that idea. Feel free to use your Storyteller Card in any way you want!", "image": "data:image/svg+xml;base64,', Base64.encode(bytes(output)), '"}'))));
         output = string(abi.encodePacked('data:application/json;base64,', json));

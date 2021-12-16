@@ -13,7 +13,7 @@ library Address {
         require(address(this).balance >= amount, "Address: insufficient balance");
 
         (bool success, ) = recipient.call{value: amount}("");
-        require(success, "Address: unable to send value, recipient may have reverted");
+        require(success, "unable to send value, recipient may have reverted");
     }
 
     function functionCall(address target, bytes memory data) internal returns (bytes memory) {
@@ -89,8 +89,6 @@ library Address {
         } else {
 
             if (returndata.length > 0) {
-                // The easiest way to bubble the revert reason is using memory via assembly
-
                 assembly {
                     let returndata_size := mload(returndata)
                     revert(add(32, returndata), returndata_size)

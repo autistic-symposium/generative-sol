@@ -56,7 +56,6 @@ Ad-hoc minting:
 > const Film = await ethers.getContractFactory('FilmmakerDAO');
 > const film = await Film.attach('<contract>')
 > await film.claim(<tokenID>)
-
 ```
 
 You should be able to see the NFT on [OpenSea Testnet](https://testnets.opensea.io/account).

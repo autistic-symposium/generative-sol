@@ -55,7 +55,7 @@ abstract contract Ownable is Context {
     }
 
     function transferOwnership(address newOwner) public virtual onlyOwner {
-        require(newOwner != address(0), "Ownable: new owner is the zero address");
+        require(newOwner != address(0), "new owner is the zero address");
         _setOwner(newOwner);
     }
 
@@ -77,7 +77,7 @@ abstract contract ReentrancyGuard {
     }
 
     modifier nonReentrant() {
-        require(_status != _ENTERED, "ReentrancyGuard: reentrant call");
+        require(_status != _ENTERED, "reentrant call");
         _status = _ENTERED;
         _;
         _status = _NOT_ENTERED;
@@ -306,7 +306,6 @@ contract FilmmakerDAO is ERC721Enumerable, ReentrancyGuard, Ownable {
     ];
 
     string[] private verbs = [
-        " delivers ",
         " defeats ",
         " persuades ",
         " kisses ",
@@ -315,7 +314,6 @@ contract FilmmakerDAO is ERC721Enumerable, ReentrancyGuard, Ownable {
         " escapes from ",
         " falls on ",
         " thinks about ",
-        " buys ",
         " drives away from ",
         " tries to kidnap  ",
         " makes love with ",
@@ -347,7 +345,7 @@ contract FilmmakerDAO is ERC721Enumerable, ReentrancyGuard, Ownable {
         "a small dog",
         "a tiny bowtie",
         "a purple hat",
-        "a giant T-shirt"
+        "a giant sweater"
     ];
 
     string[] private titles = [
@@ -425,6 +423,16 @@ contract FilmmakerDAO is ERC721Enumerable, ReentrancyGuard, Ownable {
         "at the DMV."
     ];
 
+    string[] private colors = [
+        "#33E0FF",
+        "#FFF033",
+        "#33FF8D",
+        "#FF33D4",
+        "#FF8D33",
+        "#EE5967",
+        "#726EB2"
+    ];
+
     function random(string memory input) internal pure returns (uint256) {
         return uint256(keccak256(abi.encodePacked(input)));
     }
@@ -471,20 +479,16 @@ contract FilmmakerDAO is ERC721Enumerable, ReentrancyGuard, Ownable {
         return output;
     }
 
-    function getColor(uint256 tokenId) internal pure returns (string memory) {
-        uint256 randm = random(string(abi.encodePacked("Color", toString(tokenId))));
-        uint256 color256 = randm % uint256(0xffffff);
-        string memory stringColor = Strings.toHexString(color256);
-        return stringColor;
+    function getColor(uint256 tokenId) public view returns (string memory) {
+        return pluck(tokenId, "COLORS", colors);
     }
 
     function tokenURI(uint256 tokenId) override public view returns (string memory) {
         string[25] memory parts;
         string memory idstr = toString(tokenId);
-        string memory cstr = 'blue';
 
         parts[0] = '<svg xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMinYMin meet" viewBox="0 0 350 350"><style>.cool {fill: ';
-        parts[1] = cstr;
+        parts[1] = getColor(tokenId);
         parts[2] = '; } .base { fill: white; font-family: arial; font-size: 12px; </style><rect width="100%" height="100%" fill="black" /><text x="40" y="100" class="cool">';
         parts[3] = 'You are filmmaker #';
         parts[4] = idstr;

@@ -51,7 +51,7 @@ contract ERC721 is Context, ERC165, IERC721, IERC721Metadata {
     }
 
     function tokenURI(uint256 tokenId) public view virtual override returns (string memory) {
-        require(_exists(tokenId), "URI query for nonexistent token");
+        require(_exists(tokenId), "nonexistent token");
 
         string memory baseURI = _baseURI();
         return bytes(baseURI).length > 0 ? string(abi.encodePacked(baseURI, tokenId.toString())) : "";
@@ -95,8 +95,7 @@ contract ERC721 is Context, ERC165, IERC721, IERC721Metadata {
         address to,
         uint256 tokenId
     ) public virtual override {
-        //solhint-disable-next-line max-line-length
-        require(_isApprovedOrOwner(_msgSender(), tokenId), "transfer caller is not owner nor approved");
+        require(_isApprovedOrOwner(_msgSender(), tokenId), "not owner nor approved");
 
         _transfer(from, to, tokenId);
     }
@@ -134,7 +133,7 @@ contract ERC721 is Context, ERC165, IERC721, IERC721Metadata {
     }
 
     function _isApprovedOrOwner(address spender, uint256 tokenId) internal view virtual returns (bool) {
-        require(_exists(tokenId), "operator query for nonexistent token");
+        require(_exists(tokenId), "nonexistent token");
         address owner = ERC721.ownerOf(tokenId);
         return (spender == owner || getApproved(tokenId) == spender || isApprovedForAll(owner, spender));
     }
@@ -186,8 +185,8 @@ contract ERC721 is Context, ERC165, IERC721, IERC721Metadata {
         address to,
         uint256 tokenId
     ) internal virtual {
-        require(ERC721.ownerOf(tokenId) == from, "transfer of story-card that is not own");
-        require(to != address(0), "transfer to the zero address");
+        require(ERC721.ownerOf(tokenId) == from, "transfer not own");
+        require(to != address(0), "transfer to 0 address");
 
         _beforeTokenTransfer(from, to, tokenId);
         _approve(address(0), tokenId);
@@ -215,7 +214,7 @@ contract ERC721 is Context, ERC165, IERC721, IERC721Metadata {
                 return retval == IERC721Receiver(to).onERC721Received.selector;
             } catch (bytes memory reason) {
                 if (reason.length == 0) {
-                    revert("transfer to non-ERC721Receiver");
+                    revert("transfer to non-Receiver");
                 } else {
                     assembly {
                         revert(add(32, reason), mload(reason))

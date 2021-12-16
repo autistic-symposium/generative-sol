@@ -514,7 +514,6 @@ contract FilmmakerDAO is ERC721Enumerable, ReentrancyGuard, Ownable {
         "feature film,",
         "episodic,",
         "limited series,",
-        "documentary film,",
         "podcast,",
         "VR film,",
         "narrative audio,",
@@ -526,54 +525,54 @@ contract FilmmakerDAO is ERC721Enumerable, ReentrancyGuard, Ownable {
     ];
 
     string[] private cities = [
-        "London",
-        "New York",
-        "Los Angeles",
-        "Atlanta",
-        "Miami",
-        "Buenos Aires",
-        "Curitiba",
-        "Lisbon",
-        "Hamburg",
-        "Pyongyang",
-        "Berlin",
-        "New Orleans",
-        "Detroit",
-        "New Zealand",
-        "Australia",
-        "Marfa",
-        "Bucharest",
-        "Hong Kong",
-        "Jackson",
-        "Budapest",
-        "Sao Paulo",
-        "Lagos",
-        "Omaha",
-        "Gold Coast",
-        "Paris",
-        "Tokyo",
-        "Saint Petersburg",
-        "San Francisco",
-        "Barcelona",
-        "Kisumu",
-        "Ramallah",
-        "Goa",
-        "Rio de Janeiro"
-        "Atlantis",
-        "Wakanda",
-        "Agrabah",
-        "New Orleans",
-        "Middle Earth",
-        "Seoul",
-        "Sarajevo",
-        "Shaghai",
-        "Beijing",
-        "Macau",
-        "Kyoto",
-        "Singapore",
-        "Mars",
-        "Outer Space",
-        "Alien Planet"
+        "London,",
+        "New York,",
+        "Los Angeles,",
+        "Atlanta,",
+        "Miami,",
+        "Buenos Aires,",
+        "Curitiba,",
+        "Lisbon,",
+        "Hamburg,",
+        "Pyongyang,",
+        "Berlin,",
+        "New Orleans,",
+        "Detroit,",
+        "New Zealand,",
+        "Australia,",
+        "Marfa,",
+        "Bucharest,",
+        "Hong Kong,",
+        "Jackson,",
+        "Budapest,",
+        "Sao Paulo,",
+        "Lagos,",
+        "Omaha,",
+        "Gold Coast,",
+        "Paris,",
+        "Tokyo,",
+        "Saint Petersburg,",
+        "San Francisco,",
+        "Barcelona,",
+        "Kisumu,",
+        "Ramallah,",
+        "Goa,",
+        "Rio de Janeiro,",
+        "Atlantis,",
+        "Wakanda,",
+        "Agrabah,",
+        "New Orleans,",
+        "Middle Earth,",
+        "Seoul,",
+        "Sarajevo,",
+        "Shaghai,",
+        "Beijing,",
+        "Macau,",
+        "Kyoto,",
+        "Singapore,",
+        "Mars,",
+        "Outer Space,",
+        "Alien Planet,"
     ];
 
     string[] private archetypes = [
@@ -634,7 +633,7 @@ contract FilmmakerDAO is ERC721Enumerable, ReentrancyGuard, Ownable {
         " jumps from ",
         " sings with ",
         " dances with ",
-        " swims away ",
+        " swims away from ",
         " sleeps with ",
         " flirts with ",
         " marries ",
@@ -704,29 +703,29 @@ contract FilmmakerDAO is ERC721Enumerable, ReentrancyGuard, Ownable {
     ];
 
     string[] private locations = [
-        "in the hallway",
-        "in the bedroom",
-        "at the park",
-        "in the office",
-        "in the kitchen",
-        "on the street",
-        "at the airport",
-        "in the car",
-        "at church",
-        "at school",
-        "at the supermarket",
-        "in Outer Space",
-        "in the Metavese",
-        "in the desert",
-        "in the rain forrest",
-        "in the bathroom",
-        "on thes hower",
-        "in the jungle",
-        "at the therapists office",
-        "at the mother in law's bedroom",
-        "at the golf course",
-        "at the bowling alley",
-        "at the DMV"
+        "in the hallway.",
+        "in the bedroom.",
+        "at the park.",
+        "in the office.",
+        "in the kitchen.",
+        "in the street.",
+        "at the airport.",
+        "in the car.",
+        "at church.",
+        "at school.",
+        "at the supermarket.",
+        "in Outer Space.",
+        "in the Metavese.",
+        "in the desert.",
+        "in the rain forrest.",
+        "in the bathroom.",
+        "in the shower.",
+        "in the jungle.",
+        "at the therapists office.",
+        "at the mother in law's bedroom.",
+        "at the golf course.",
+        "at the bowling alley.",
+        "at the DMV."
     ];
 
     function random(string memory input) internal pure returns (uint256) {
@@ -776,33 +775,36 @@ contract FilmmakerDAO is ERC721Enumerable, ReentrancyGuard, Ownable {
     }
 
     function tokenURI(uint256 tokenId) override public view returns (string memory) {
-        string[22] memory parts;
+        string[23] memory parts;
+        string memory idstr = toString(tokenId);
+
         parts[0] = '<svg xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMinYMin meet" viewBox="0 0 350 350"><style>.base { fill: white; font-family: arial; font-size: 12px; </style><rect width="100%" height="100%" fill="black" /><text x="40" y="100" class="base">';
-        parts[1] = 'Hello, storyteller! Welcome to FilmmakerDAO!';
-        parts[2] = '</text><text x="40" y="140" class="base">';
-        parts[3] = 'You are ';
-        parts[4] = getTitles(tokenId);
-        parts[5] = ' for your ';
-        parts[6] = '</text><text x="40" y="160" class="base">';
-        parts[7] = getGenres(tokenId);
-        parts[8] = getMediums(tokenId);
-        parts[9] = '</text><text x="40" y="180" class="base">';
-        parts[10] = 'particularly for that ';
-        parts[11] = getAdjectives(tokenId);
-        parts[12] = ' scene in ';
-        parts[13] = getCities(tokenId);
-        parts[14] = '</text><text x="40" y="200" class="base">';
-        parts[15] = ' when the ';
-        parts[16] = getArchetypes(tokenId);
-        parts[17] = getVerbs(tokenId);
-        parts[18] = getObjects(tokenId);
-        parts[19] = '</text><text x="40" y="220" class="base">';
-        parts[20] = getLocations(tokenId);
-        parts[21] = '</text></svg>';
+        parts[1] = 'You are filmmaker #';
+        parts[2] = idstr;
+        parts[3] = '</text><text x="40" y="140" class="base">';
+        parts[4] = 'You are ';
+        parts[5] = getTitles(tokenId);
+        parts[6] = ' for your ';
+        parts[7] = '</text><text x="40" y="160" class="base">';
+        parts[8] = getGenres(tokenId);
+        parts[9] = getMediums(tokenId);
+        parts[10] = '</text><text x="40" y="180" class="base">';
+        parts[11] = 'particularly for that ';
+        parts[12] = getAdjectives(tokenId);
+        parts[13] = ' scene in ';
+        parts[14] = getCities(tokenId);
+        parts[15] = '</text><text x="40" y="200" class="base">';
+        parts[16] = ' when the ';
+        parts[17] = getArchetypes(tokenId);
+        parts[18] = getVerbs(tokenId);
+        parts[19] = getObjects(tokenId);
+        parts[20] = '</text><text x="40" y="220" class="base">';
+        parts[21] = getLocations(tokenId);
+        parts[22] = '</text></svg>';
 
         string memory output = string(abi.encodePacked(parts[0], parts[1], parts[2], parts[3], parts[4], parts[5], parts[6], parts[7], parts[8], parts[9]));
         output = string(abi.encodePacked(output, parts[10], parts[11], parts[12], parts[13], parts[14], parts[15], parts[16], parts[17]));
-        output = string(abi.encodePacked(output, parts[18], parts[19], parts[20], parts[21]));
+        output = string(abi.encodePacked(output, parts[18], parts[19], parts[20], parts[21], parts[22]));
 
         string memory json = Base64.encode(bytes(string(abi.encodePacked('{"name": "Filmmaker #', toString(tokenId), '", "description": "The Storytelling card collection is the FilmmakerDAO NFT series for season 0. It is a randomized Story generated and stored on-chain. We thought Loot was a great project to spur further creative thought, and we hope Filmmakers can carry on that idea. Feel free to use your Storyteller Card in any way you want!", "image": "data:image/svg+xml;base64,', Base64.encode(bytes(output)), '"}'))));
         output = string(abi.encodePacked('data:application/json;base64,', json));

@@ -5,7 +5,6 @@ import {Context} from "../utils/Context.sol";
 
 abstract contract Ownable is Context {
     address private _owner;
-    uint256 public constant SALE_PRICE = 0.05 ether;
 
     event OwnershipTransferred(address indexed previousOwner, address indexed newOwner);
 
@@ -19,12 +18,6 @@ abstract contract Ownable is Context {
 
     modifier onlyOwner() {
         require(owner() == _msgSender(), "Ownable: caller is not the owner");
-        _;
-    }
-
-    modifier isCorrectPrice(uint256 price) {
-        require(
-            msg.value >= price, "Not enough ETH sent: check price.");
         _;
     }
 

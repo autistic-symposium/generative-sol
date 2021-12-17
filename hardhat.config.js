@@ -21,7 +21,7 @@ task("accounts", "Prints the list of accounts", async (taskArgs, hre) => {
 });
 
 module.exports = {
-  defaultNetwork: "rinkeby",
+  defaultNetwork: "mainnet",
   solidity: "0.8.4",
   networks: {
     hardhat: {},
@@ -36,9 +36,14 @@ module.exports = {
     mainnet: {
       url: "https://mainnet.infura.io/v3/" + apiEndpoint,
       accounts: [privateKey]
+    },
+    matic: {
+      url: "https://polygon-mainnet.g.alchemy.com/v2/TlXf_qnaoJ2S3nR3JtAI3P0ponXcAS6T",
+      accounts: [privateKey]
     }
   },
   etherscan: {
     apiKey: apiEtherscan
-  }
+  },
+
 };

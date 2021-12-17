@@ -58,10 +58,10 @@ Ad-hoc minting:
 ```
 > const Film = await ethers.getContractFactory('FilmmakerDAO');
 > const film = await Film.attach('<contract>')
-> await film.claim(<tokenID>)
+> await film.mint(<tokenID>)
 ```
 
-You should be able to see the NFT on [OpenSea Testnet](https://testnets.opensea.io/account). Our contract is deployed [here](https://rinkeby.etherscan.io/address/0x458220CCd8d610FDad4B799D8ae446eCB4dEd83D#readContract).
+You should be able to see the NFT on [OpenSea Testnet](https://testnets.opensea.io/account).
 
 
 ### Verify Smart Contract

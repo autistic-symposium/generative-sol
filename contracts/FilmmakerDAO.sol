@@ -34,6 +34,8 @@ import {ERC721Enumerable} from "../utils/ERC721Enumerable.sol";
 
 contract FilmmakerDAO is ERC721Enumerable, ReentrancyGuard, Ownable {
 
+    uint256 public constant SALE_PRICE = 0.05 ether;
+
     string[] private genres = [
         "chick flick ",
         "comedy ",
@@ -60,7 +62,6 @@ contract FilmmakerDAO is ERC721Enumerable, ReentrancyGuard, Ownable {
         "screwball comedy ",
         "epic ",
         "psychological thriller ",
-        "torture porn ",
         "snuff ",
         "samurai ",
         "wuXia ",
@@ -142,10 +143,8 @@ contract FilmmakerDAO is ERC721Enumerable, ReentrancyGuard, Ownable {
         " Dark Lord ",
         " Wojak ",
         " Ohmie ",
-        " Soyjak ",
         " Pepe ",
         " Tetranode ",
-        " Sisyphus ",
         " God ",
         " pixie girl ",
         " Timothee type ",
@@ -175,7 +174,7 @@ contract FilmmakerDAO is ERC721Enumerable, ReentrancyGuard, Ownable {
         " sleeps with ",
         " flirts with ",
         " marries ",
-        " messes around with ",
+        " messes with ",
         " dreams about "
     ];
 
@@ -203,10 +202,10 @@ contract FilmmakerDAO is ERC721Enumerable, ReentrancyGuard, Ownable {
         "a half doobie",
         "a giant ugly sweater",
         "a jug full of drugs",
-        "a Magick book",
+        "a spell book",
         "a teddy bear",
         "a poisoned apple",
-        "a green balloon"
+        "a red balloon"
     ];
 
     string[] private titles = [
@@ -225,7 +224,7 @@ contract FilmmakerDAO is ERC721Enumerable, ReentrancyGuard, Ownable {
         "respected",
         "an Oscar winner",
         "Teen Choice Awards winner",
-        "famed",
+        "celebrated",
         "a rockstar"
     ];
 
@@ -246,7 +245,7 @@ contract FilmmakerDAO is ERC721Enumerable, ReentrancyGuard, Ownable {
         "brilliant ",
         "delightful ",
         "dark ",
-        "cute ",
+        "beautiful ",
         "terrible ",
         "silly ",
         "grotesque ",
@@ -256,7 +255,6 @@ contract FilmmakerDAO is ERC721Enumerable, ReentrancyGuard, Ownable {
         "glorious ",
         "magnificent ",
         "naughty ",
-        "repulsive ",
         "wicked ",
         "sexy ",
         "ingenious ",
@@ -397,17 +395,14 @@ contract FilmmakerDAO is ERC721Enumerable, ReentrancyGuard, Ownable {
         output = string(abi.encodePacked(output, parts[10], parts[11], parts[12], parts[13], parts[14], parts[15], parts[16], parts[17], parts[18]));
         output = string(abi.encodePacked(output, parts[19], parts[20], parts[21], parts[22], parts[23], parts[24], parts[25], parts[26]));
 
-        string memory json = Base64.encode(bytes(string(abi.encodePacked('{"name": "Filmmaker #', toString(tokenId), '", "description": "The Storytelling card collection is the FilmmakerDAO generative storytelling NFT series for season 0. It is a randomized story generated and stored on-chain. We thought Loot was a great project to spur further creative thought, and we hope Filmmakers can carry on that idea. Feel free to use your Storyteller Card in any way you want!", "image": "data:image/svg+xml;base64,', Base64.encode(bytes(output)), '"}'))));
+        string memory json = Base64.encode(bytes(string(abi.encodePacked('{"name": "Filmmaker #', toString(tokenId), '", "description": "The Storytelling card collection is the FilmmakerDAO generative storytelling NFT series. It is a randomized story generated and stored on-chain. Feel free to use your Storyteller Card in any way you want!", "image": "data:image/svg+xml;base64,', Base64.encode(bytes(output)), '"}'))));
         output = string(abi.encodePacked('data:application/json;base64,', json));
 
         return output;
     }
 
-    function mint(uint256 tokenId)
-        public
-        payable
-        isCorrectPrice(SALE_PRICE)
-        {
+    function mintCard(uint256 tokenId) public payable {
+        require(msg.value >= SALE_PRICE, "Not enough ETH sent: check price.");
         require(tokenId > 0 && tokenId < 1338, "Token ID invalid");
         _safeMint(_msgSender(), tokenId);
     }

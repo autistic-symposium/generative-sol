@@ -61,7 +61,7 @@ Ad-hoc minting:
 > await film.claim(<tokenID>)
 ```
 
-You should be able to see the NFT on [OpenSea Testnet](https://testnets.opensea.io/account).
+You should be able to see the NFT on [OpenSea Testnet](https://testnets.opensea.io/account). Our contract is deployed [here](https://rinkeby.etherscan.io/address/0x458220CCd8d610FDad4B799D8ae446eCB4dEd83D#readContract).
 
 
 ### Verify Smart Contract

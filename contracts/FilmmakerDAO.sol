@@ -21,159 +21,15 @@ _________________________▓██████████▓██████�
 __________________________└▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀_________________________
 ______________________________________________________________________________*/
 
-import {Strings} from "../utils/Strings.sol";
+
+import {ERC721} from "../utils/ERC721.sol";
+import {Ownable} from "../utils/Ownable.sol";
+import {SafeMath} from "../utils/SafeMath.sol";
 import {Address} from "../utils/Address.sol";
 import {Base64} from "../utils/Base64.sol";
-import {ERC721} from "../utils/ERC721.sol";
-import {IERC721} from "../utils/IERC721.sol";
-import {IERC165} from "../utils/IERC165.sol";
-import {ERC165} from "../utils/ERC165.sol";
-import {Context} from "../utils/Context.sol";
+import {ReentrancyGuard} from "../utils/ReentrancyGuard.sol";
+import {ERC721Enumerable} from "../utils/ERC721Enumerable.sol";
 
-
-
-abstract contract Ownable is Context {
-    address private _owner;
-
-    event OwnershipTransferred(address indexed previousOwner, address indexed newOwner);
-
-    constructor() {
-        _setOwner(_msgSender());
-    }
-
-    function owner() public view virtual returns (address) {
-        return _owner;
-    }
-
-    modifier onlyOwner() {
-        require(owner() == _msgSender(), "Ownable: caller is not the owner");
-        _;
-    }
-
-    function renounceOwnership() public virtual onlyOwner {
-        _setOwner(address(0));
-    }
-
-    function transferOwnership(address newOwner) public virtual onlyOwner {
-        require(newOwner != address(0), "new owner is the zero address");
-        _setOwner(newOwner);
-    }
-
-    function _setOwner(address newOwner) private {
-        address oldOwner = _owner;
-        _owner = newOwner;
-        emit OwnershipTransferred(oldOwner, newOwner);
-    }
-}
-
-
-abstract contract ReentrancyGuard {
-    uint256 private constant _NOT_ENTERED = 1;
-    uint256 private constant _ENTERED = 2;
-    uint256 private _status;
-
-    constructor() {
-        _status = _NOT_ENTERED;
-    }
-
-    modifier nonReentrant() {
-        require(_status != _ENTERED, "reentrant call");
-        _status = _ENTERED;
-        _;
-        _status = _NOT_ENTERED;
-    }
-}
-
-
-
-interface IERC721Enumerable is IERC721 {
-    function totalSupply() external view returns (uint256);
-    function tokenOfOwnerByIndex(address owner, uint256 index) external view returns (uint256 tokenId);
-    function tokenByIndex(uint256 index) external view returns (uint256);
-}
-
-
-abstract contract ERC721Enumerable is ERC721, IERC721Enumerable {
-    mapping(address => mapping(uint256 => uint256)) private _ownedTokens;
-    mapping(uint256 => uint256) private _ownedTokensIndex;
-    uint256[] private _allTokens;
-    mapping(uint256 => uint256) private _allTokensIndex;
-
-    function supportsInterface(bytes4 interfaceId) public view virtual override(IERC165, ERC721) returns (bool) {
-        return interfaceId == type(IERC721Enumerable).interfaceId || super.supportsInterface(interfaceId);
-    }
-
-    function tokenOfOwnerByIndex(address owner, uint256 index) public view virtual override returns (uint256) {
-        require(index < ERC721.balanceOf(owner), "owner index out of bounds");
-        return _ownedTokens[owner][index];
-    }
-
-    function totalSupply() public view virtual override returns (uint256) {
-        return _allTokens.length;
-    }
-
-    function tokenByIndex(uint256 index) public view virtual override returns (uint256) {
-        require(index < ERC721Enumerable.totalSupply(), "global index out of bounds");
-        return _allTokens[index];
-    }
-
-    function _beforeTokenTransfer(
-        address from,
-        address to,
-        uint256 tokenId
-    ) internal virtual override {
-        super._beforeTokenTransfer(from, to, tokenId);
-
-        if (from == address(0)) {
-            _addTokenToAllTokensEnumeration(tokenId);
-        } else if (from != to) {
-            _removeTokenFromOwnerEnumeration(from, tokenId);
-        }
-        if (to == address(0)) {
-            _removeTokenFromAllTokensEnumeration(tokenId);
-        } else if (to != from) {
-            _addTokenToOwnerEnumeration(to, tokenId);
-        }
-    }
-
-    function _addTokenToOwnerEnumeration(address to, uint256 tokenId) private {
-        uint256 length = ERC721.balanceOf(to);
-        _ownedTokens[to][length] = tokenId;
-        _ownedTokensIndex[tokenId] = length;
-    }
-
-    function _addTokenToAllTokensEnumeration(uint256 tokenId) private {
-        _allTokensIndex[tokenId] = _allTokens.length;
-        _allTokens.push(tokenId);
-    }
-
-    function _removeTokenFromOwnerEnumeration(address from, uint256 tokenId) private {
-        uint256 lastTokenIndex = ERC721.balanceOf(from) - 1;
-        uint256 tokenIndex = _ownedTokensIndex[tokenId];
-
-        if (tokenIndex != lastTokenIndex) {
-            uint256 lastTokenId = _ownedTokens[from][lastTokenIndex];
-
-            _ownedTokens[from][tokenIndex] = lastTokenId;
-            _ownedTokensIndex[lastTokenId] = tokenIndex;
-        }
-
-        delete _ownedTokensIndex[tokenId];
-        delete _ownedTokens[from][lastTokenIndex];
-    }
-
-    function _removeTokenFromAllTokensEnumeration(uint256 tokenId) private {
-        uint256 lastTokenIndex = _allTokens.length - 1;
-        uint256 tokenIndex = _allTokensIndex[tokenId];
-        uint256 lastTokenId = _allTokens[lastTokenIndex];
-
-        _allTokens[tokenIndex] = lastTokenId;
-        _allTokensIndex[lastTokenId] = tokenIndex;
-
-        delete _allTokensIndex[tokenId];
-        _allTokens.pop();
-    }
-}
 
 
 contract FilmmakerDAO is ERC721Enumerable, ReentrancyGuard, Ownable {
@@ -341,7 +197,7 @@ contract FilmmakerDAO is ERC721Enumerable, ReentrancyGuard, Ownable {
         "an old laptop",
         "a map to a treasure",
         "a trash can",
-        "an incriminating Polaroid",
+        "an incriminating photo",
         "a shiny watch",
         "a purple doll",
         "a half doobie",
@@ -547,7 +403,11 @@ contract FilmmakerDAO is ERC721Enumerable, ReentrancyGuard, Ownable {
         return output;
     }
 
-    function claim(uint256 tokenId) public nonReentrant {
+    function mint(uint256 tokenId)
+        public
+        payable
+        isCorrectPrice(SALE_PRICE)
+        {
         require(tokenId > 0 && tokenId < 1338, "Token ID invalid");
         _safeMint(_msgSender(), tokenId);
     }
@@ -576,6 +436,6 @@ contract FilmmakerDAO is ERC721Enumerable, ReentrancyGuard, Ownable {
         return string(buffer);
     }
 
-    constructor() ERC721("FilmmakerDAO Season 0", "FILMMAKER") Ownable() {}
+    constructor() ERC721("Storyteller Card", "FILMMAKER") Ownable() {}
 }
 

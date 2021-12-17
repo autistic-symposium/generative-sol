@@ -1,5 +1,5 @@
 // SPDX-License-Identifier: MIT
-pragma solidity ^0.8.1;
+pragma solidity ^0.8.4;
 
 /**
 _______________________________________________,╥▄▓█████________________________
@@ -194,10 +194,10 @@ contract FilmmakerDAO is ERC721Enumerable, ReentrancyGuard, Ownable {
         "anime ",
         "mumblecore ",
         "musical ",
-        "korean bew wave ",
+        "korean new wave ",
         "acid western ",
-        "dogme 95 ",
-        "french new wave   ",
+        "Dogme 95 ",
+        "french new wave ",
         "italian neo realism ",
         "pulp ",
         "noir ",
@@ -262,9 +262,7 @@ contract FilmmakerDAO is ERC721Enumerable, ReentrancyGuard, Ownable {
         "Middle Earth,",
         "Shaghai,",
         "Kyoto,",
-        "Mars,",
-        "Outer Space,",
-        "Alien Planet,"
+        "Mars,"
     ];
 
     string[] private archetypes = [
@@ -295,16 +293,14 @@ contract FilmmakerDAO is ERC721Enumerable, ReentrancyGuard, Ownable {
         " God ",
         " pixie girl ",
         " Timothee type ",
-        " Pikachu ",
         " clown ",
         " superhero "
     ];
 
     string[] private verbs = [
-        " breaks into pieces ",
         " steals  ",
         " kisses ",
-        " run away from ",
+        " runs away from ",
         " fights against ",
         " escapes with ",
         " falls on ",
@@ -323,12 +319,12 @@ contract FilmmakerDAO is ERC721Enumerable, ReentrancyGuard, Ownable {
         " sleeps with ",
         " flirts with ",
         " marries ",
-        " mess around with ",
+        " messes around with ",
         " dreams about "
     ];
 
     string[] private objects = [
-        "a ugly painting",
+        "a stunning painting",
         "a shinning diamond",
         "a bag full of money",
         "a tiny skateboard",
@@ -336,21 +332,23 @@ contract FilmmakerDAO is ERC721Enumerable, ReentrancyGuard, Ownable {
         "an empty coffee cup",
         "a can of diet coke",
         "a large red axe",
-        "a M1911 pistol",
+        "a toy gun",
         "a small plastic bird",
+        "a broken lighter",
         "a giant bowtie",
         "a golf cart",
         "a bowl full of pasta",
         "an old laptop",
         "a map to a treasure",
         "a trash can",
-        "a incriminating Polaroid",
+        "an incriminating Polaroid",
         "a shiny watch",
-        "a purple toy hat",
+        "a purple doll",
         "a half doobie",
         "a giant ugly sweater",
         "a jug full of drugs",
         "a Magick book",
+        "a teddy bear",
         "a poisoned apple",
         "a green balloon"
     ];
@@ -423,25 +421,25 @@ contract FilmmakerDAO is ERC721Enumerable, ReentrancyGuard, Ownable {
 
     string[] private locations = [
         "under a bridge.",
-        "at some park.",
-        "in a mall.",
+        "in some park.",
+        "in the mall.",
         "in the kitchen.",
         "at Starbucks.",
-        "at some airport.",
-        "in some church.",
-        "at some school.",
-        "at some supermarket.",
+        "in the airport.",
+        "in the church.",
+        "in the school.",
+        "in the supermarket.",
         "in the Metaverse.",
         "in a desert.",
         "in a forest.",
         "in a bathroom.",
         "in a shower.",
         "in a jungle.",
-        "in a deli",
+        "in a deli.",
         "at the therapist's office.",
         "at the mother in law's bedroom.",
-        "at a golf course.",
-        "at a bowling alley.",
+        "in a golf course.",
+        "in a bowling alley.",
         "at the DMV.",
         "at McDonald's.",
         "at 7-Eleven."
@@ -458,8 +456,7 @@ contract FilmmakerDAO is ERC721Enumerable, ReentrancyGuard, Ownable {
     ];
 
     function random(string memory input) internal pure returns (uint256) {
-        uint256 seed = uint256(keccak256(abi.encodePacked(input)));
-        return uint256(keccak256(abi.encodePacked(seed)));
+        return uint256(keccak256(abi.encodePacked(input)));
     }
 
     function getGenres(uint256 tokenId) public view returns (string memory) {

@@ -1,10 +1,8 @@
-# Generative Storytelling NFT by FilmmakerDAO
+# Generative Storytelling NFT
 
-FilmmakerDAO Season 0 NFT drop, named **Storytelling Card**, is a generarative story based on the "[Loot Project](https://www.lootproject.com/)". 
+The **Storytelling Card** is a generative ERC721 collection based on the "[Loot Project](https://www.lootproject.com/)" and written by [@bt3gl](https://twitter.com/bt3gl).
 
-This ERC721 collection was written by [@bt3gl](https://twitter.com/bt3gl).
-
-The NFT SVGs are generated randomly on chain with the metadata in the smart contract. You can check the collection on [OpenSea](https://opensea.io/thefilmmakerdao.eth).
+The NFT SVGs are generated randomly on chain with the metadata in the smart contract. You can check the collection on [OpenSea](https://opensea.io/collection/storyteller-card).
 
 
  You might deploy this smart contract on Ethereum or EVM compatible network. Below are the steps.

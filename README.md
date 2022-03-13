@@ -1,4 +1,4 @@
-# Generative Storytelling NFT
+# On-chain Generative Storytelling NFT Collection
 
 The **Storytelling Card** is a generative ERC721 collection based on the "[Loot Project](https://www.lootproject.com/)" and written by [@bt3gl](https://twitter.com/bt3gl).
 

@@ -2,7 +2,7 @@
 
 <br>
 
-The **Storytelling Card** is a generative ERC721 collection based on the "[Loot Project](https://www.lootproject.com/)" and written by [@bt3gl](https://twitter.com/bt3gl).
+The **Storytelling Card** is a generative ERC721 collection loosely based on the "[Loot Project](https://www.lootproject.com/)".
 
 <br>
 
@@ -11,7 +11,7 @@ NFT SVGs are generated randomly on chain with the metadata in the smart contract
 <br>
 
 
- You might deploy this smart contract on Ethereum or EVM compatible network. Below are the steps.
+ You might deploy this smart contract on Ethereum or EVM compatible network.
  
  <br>
 

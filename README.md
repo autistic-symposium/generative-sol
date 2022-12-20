@@ -1,19 +1,22 @@
-# 🎭 Smart contract for "on-chain generative storytelling NFT collection"
+# 🎭 Smart contract for my "on-chain generative storytelling NFT collection"
 
 <br>
 
-The **Storytelling Card** is a generative ERC721 collection loosely based on the "[Loot Project](https://www.lootproject.com/)".
+## tl; dr
 
-<br>
-
-NFT SVGs are generated randomly on chain with the metadata in the smart contract. You can check the collection on [OpenSea](https://opensea.io/collection/storyteller-card).
-
-<br>
-
-
- You might deploy this smart contract on Ethereum or EVM compatible network.
+* The **Storytelling Card** is a generative ERC721 collection loosely based on the "[Loot Project](https://www.lootproject.com/)".
+* NFT SVGs are generated randomly on chain with the metadata in the smart contract. You can check the collection on [OpenSea](https://opensea.io/collection/storyteller-card).
+* You might deploy this smart contract on Ethereum or EVM compatible network.
+* Mint yours at [generativestory.com](https://www.generativestory.com/). [Here](https://github.com/go-outside-labs/dapp) is the open-source code for the dapp.
  
- <br>
+<br>
+
+![Screen Shot 2022-12-20 at 12 17 32 AM](https://user-images.githubusercontent.com/1130416/208617568-8c0ece72-27ba-434e-bef6-8534c6e0ef81.png)
+
+
+
+<br>
+
 
 ---
 

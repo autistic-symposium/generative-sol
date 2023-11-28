@@ -1,17 +1,17 @@
-# 🎭 Smart contract for my "on-chain generative storytelling NFT collection"
+## 🎭 smart contract for my "on-chain generative storytelling NFT collection"
 
 <br>
 
-## tl; dr
+### tl; dr
 
-* The **Storytelling Card** is a generative ERC721 collection loosely based on the "[Loot Project](https://www.lootproject.com/)".
-* NFT SVGs are generated randomly on chain with the metadata in the smart contract. You can check the collection on [OpenSea](https://opensea.io/collection/storyteller-card).
-* You might deploy this smart contract on Ethereum or EVM compatible network.
-* Mint yours at [generativestory.com](https://www.generativestory.com/). [Here](https://github.com/go-outside-labs/dapp) is the open-source code for the dapp.
+* the **storytelling card** is a generative ERC721 collection loosely based on the "[loot project](https://www.lootproject.com/)".
+* NFT SVGs are generated randomly on chain with the metadata in the smart contract (you can check the collection on [opensea](https://opensea.io/collection/storyteller-card)).
+* you might deploy this smart contract on ethereum or EVM compatible network.
+* mint yours at [generativestory.com](https://www.generativestory.com/). [Here](https://github.com/go-outside-labs/dapp) is the open-source code for the dapp.
  
 <br>
 
-![Screen Shot 2022-12-20 at 12 17 32 AM](https://user-images.githubusercontent.com/1130416/208617568-8c0ece72-27ba-434e-bef6-8534c6e0ef81.png)
+![](https://user-images.githubusercontent.com/1130416/208617568-8c0ece72-27ba-434e-bef6-8534c6e0ef81.png)
 
 
 
@@ -20,52 +20,55 @@
 
 ---
 
-## Setup
+### setup
 
-* Set an account and project on [Infura](https://infura.io/dashboard) or [Alchemy](https://dashboard.alchemyapi.io/).
-* Set a test account in MetaMask and copy your private key. I use Rinkeby for dev (you can get some funds in [this faucet](https://faucet.rinkeby.io/)).
-* Set up an account at [Etherscan](https://etherscan.io/) and grab the API key.
+* set an account and project on [infura](https://infura.io/dashboard) or [alchemy](https://dashboard.alchemyapi.io/).
+* set a test account in metamask and copy your private key. I used rinkeby for dev (you can get some funds in [this faucet](https://faucet.rinkeby.io/)).
+* set up an account at [etherscan](https://etherscan.io/) and grab the API key.
 
 ```bash
 cp env_example .env
 vim .env
 ```
 
-Install dependencies:
+install dependencies:
 
 ```bash
 npm install
 ```
+
 <br>
 
 
 ---
 
-## Deploying on Rinkeby
+### deploying on rinkeby
 
-Set the default network "rinkeby" at `hardhat.config.js`.
+set the default network "rinkeby" at `hardhat.config.js`.
 
-Compile the contract:
+compile the contract:
 
 ```shell
 npx hardhat compile
 ```
 
-Deploy the contract:
+deploy the contract:
 
 ```
 npx hardhat run scripts/deploy.js
 ```
 
-You should be able to see it at [Rinkeby Etherscan](https://rinkeby.etherscan.io/).
+you should be able to see it at [rinkeby etherscan](https://rinkeby.etherscan.io/).
 
-### Interacting with the contract
+<br>
+
+#### Interacting with the contract
 
 ```bash
 npx hardhat console --network rinkeby
 ```
 
-Ad-hoc minting:
+ad-hoc minting:
 
 ```
 > const Film = await ethers.getContractFactory('FilmmakerDAO');
@@ -73,32 +76,36 @@ Ad-hoc minting:
 > await film.mint(<tokenID>)
 ```
 
-You should be able to see the NFT on [OpenSea Testnet](https://testnets.opensea.io/account).
+you should be able to see the NFT on [opensea (testnet)](https://testnets.opensea.io/account).
 
+<br>
 
-### Verify Smart Contract
+#### verify your smart contract
 
-Install Hardhat Etherscan plugin (compatible with Etherscan and Polygonscan)
+install hardhat etherscan plugin (compatible with etherscan and polygonscan)
 
 ```
 npm install --save-dev @nomiclabs/hardhat-etherscan
 ```
 
-Verify the smart contract with contract address
+verify the smart contract with contract address
 
 ```
 npx hardhat verify --network rinkeby YOUR_CONTRACT_ADDRESS
 ```
 
-### Useful commands
+<br>
 
-Test a smart contract:
+
+#### useful commands
+
+test a smart contract:
 
 ```bash
 npx hardhat test
 ```
 
-Clean artifacts:
+clean artifacts:
 
 ```bash
 npx hardhat clean
@@ -108,7 +115,7 @@ npx hardhat clean
 
 ---
 
-## Deploying on Mainnet
+### deploying on mainnet
 
-Same steps, simply set the default network to "mainnet" and make sure the private key in `.env` is from the desired account.
+same steps, simply set the default network to "mainnet" and make sure the private key in `.env` is from the desired account.
 

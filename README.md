@@ -1,30 +1,36 @@
-## 🎭 smart contract for my "on-chain generative storytelling NFT collection"
+## 🎭 smart contract for the "on-chain generative storytelling NFT collection"
+
+
+<br>
+
+
+<p float="center">
+<img width="478" src="https://github.com/go-outside-labs/generative-sol/assets/138340846/5d2276d0-5623-4ed8-9d83-6be7c840b43c">
+<img width="478"  src="https://github.com/go-outside-labs/generative-sol/assets/138340846/92d91fb4-ba2e-448c-a1c8-3ddecbda1ccc">
+</p>
+
+
+
+
+
 
 <br>
 
 ### tl; dr
 
-* the **storytelling card** is a generative ERC721 collection loosely based on the "[loot project](https://www.lootproject.com/)".
-* NFT SVGs are generated randomly on chain with the metadata in the smart contract (you can check the collection on [opensea](https://opensea.io/collection/storyteller-card)).
-* you might deploy this smart contract on ethereum or EVM compatible network.
-* mint yours at [generativestory.com](https://www.generativestory.com/). [Here](https://github.com/go-outside-labs/dapp) is the open-source code for the dapp.
+* the **storytelling card** is a generative ERC721 collection loosely based on the **[loot project](https://www.lootproject.com/)**, that celebrates the sunset of **[FilmmakerDAO](https://story.mirror.xyz/gbwXf_IOm4BkUNmWYWz5M-47Te8ELuQngClR8iHFxDU")**.
+* SVGs are generated (pseudo-)randomly on the ethereum blockchain: you can check the contract **[here](https://etherscan.io/address/0x9213256fe89fa0428e8546910a8d78180dbbdc38#code)** or mint your card **[here](https://storyteller-mint-app-git-main-getstory.vercel.app/)**.
+
  
 <br>
 
-![](https://user-images.githubusercontent.com/1130416/208617568-8c0ece72-27ba-434e-bef6-8534c6e0ef81.png)
-
-
-
-<br>
-
-
 ---
 
-### setup
+### setting up
 
-* set an account and project on [infura](https://infura.io/dashboard) or [alchemy](https://dashboard.alchemyapi.io/).
-* set a test account in metamask and copy your private key. I used rinkeby for dev (you can get some funds in [this faucet](https://faucet.rinkeby.io/)).
-* set up an account at [etherscan](https://etherscan.io/) and grab the API key.
+* set an account and project on **[infura](https://infura.io/dashboard)** or **[alchemy](https://dashboard.alchemyapi.io/)**.
+* set a test account in metamask and copy your private key (i used rinkeby for dev and you can get some funds in **[this faucet](https://faucet.rinkeby.io/))**.
+* set up an account at **[etherscan](https://etherscan.io/)** and grab the API key.
 
 ```bash
 cp env_example .env
@@ -58,11 +64,13 @@ deploy the contract:
 npx hardhat run scripts/deploy.js
 ```
 
-you should be able to see it at [rinkeby etherscan](https://rinkeby.etherscan.io/).
+you should be able to see it at **[rinkeby etherscan](https://rinkeby.etherscan.io/)**.
 
 <br>
 
-#### Interacting with the contract
+----
+
+### Interacting with the contract
 
 ```bash
 npx hardhat console --network rinkeby
@@ -76,11 +84,13 @@ ad-hoc minting:
 > await film.mint(<tokenID>)
 ```
 
-you should be able to see the NFT on [opensea (testnet)](https://testnets.opensea.io/account).
+you should be able to see the NFT on the **[opensea (testnet)](https://testnets.opensea.io/account)**.
 
 <br>
 
-#### verify your smart contract
+----
+
+### verify your smart contract
 
 install hardhat etherscan plugin (compatible with etherscan and polygonscan)
 
@@ -88,7 +98,7 @@ install hardhat etherscan plugin (compatible with etherscan and polygonscan)
 npm install --save-dev @nomiclabs/hardhat-etherscan
 ```
 
-verify the smart contract with contract address
+verify the smart contract with the contract address
 
 ```
 npx hardhat verify --network rinkeby YOUR_CONTRACT_ADDRESS
@@ -96,8 +106,9 @@ npx hardhat verify --network rinkeby YOUR_CONTRACT_ADDRESS
 
 <br>
 
+----
 
-#### useful commands
+### useful commands
 
 test a smart contract:
 

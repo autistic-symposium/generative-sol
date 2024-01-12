@@ -4,7 +4,7 @@
 <br>
 
 
-<p float="center">
+<p align="center">
 <img width="300" src="https://github.com/go-outside-labs/generative-sol/assets/138340846/5d2276d0-5623-4ed8-9d83-6be7c840b43c">
 <img width="300"  src="https://github.com/go-outside-labs/generative-sol/assets/138340846/92d91fb4-ba2e-448c-a1c8-3ddecbda1ccc">
 </p>
